@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,33 +12,207 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <title>Document</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
 </head>
+
 <body>
-    <div class="row">
-        <div class="col-3" style="background-color: red;">
-          One of three columns
-        </div>
-        <div class="col-9" style="background-color: blue;">
-            <div id="navbar" class="">
-                <div class="container">
-                    <ul id="nav">
-                        <li><a href="/">Home</a></li>
-                        <li>
-                            <a href="#">Sản Phẩm</a>
-                        </li>
-                        <li ><a sec:authorize="isAuthenticated()" href="/Account">Tài khoản</a></li>
-        
-        
-                        <div class="login-section">
-                            <a sec:authorize="isAuthenticated()" href="/Logout">Đăng xuất</a>
-                            <a sec:authorize="isAnonymous()" href="/SignAndLog">Đăng nhập / Đăng Kí</a>
-                            
-                        </div>
-                    </ul>
+    <!-- Nav Trước khi đăng nhập -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand me-2" href="https://mdbgo.com/">
+                <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="16" alt="MDB Logo"
+                    loading="lazy" style="margin-top: -1px;" />
+            </a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Dashboard</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-link px-3 me-2">
+                        Login
+                    </button>
+                    <button type="button" class="btn btn-primary me-3">
+                        Sign up for free
+                    </button>
+                    <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i
+                            class="fab fa-github"></i></a>
                 </div>
-                
             </div>
         </div>
+    </nav> -->
+    <!-- Nav sau khi đăng nhập -->
+    <!-- Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid justify-content-between">
+      <div class="d-flex">
+        <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#" style="margin: 0px;">
+          <img
+            src="/src/main/resources/Image/logo.jfif"
+            height="60"
+            alt="MDB Logo"
+            loading="lazy"
+          />
+        </a>
+        <form class="input-group w-auto my-auto d-none d-sm-flex">
+          <input
+            autocomplete="off"
+            type="search"
+            class="form-control rounded"
+            placeholder="Search"
+            style="min-width: 125px;"
+          />
+          <span class="input-group-text border-0 d-none d-lg-flex"
+            ><i class="fas fa-search"></i
+          ></span>
+        </form>
       </div>
+      
+      <!-- Center elements -->
+  
+      <!-- Right elements -->
+      <ul class="navbar-nav flex-row">
+        <li class="nav-item me-3 me-lg-1">
+          <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp"
+              class="rounded-circle"
+              height="22"
+              alt="Black and White Portrait of a Man"
+              loading="lazy"
+            />
+            <strong class="d-none d-sm-block ms-1">John</strong>
+          </a>
+        </li>
+        <li class="nav-item me-3 me-lg-1">
+          <a class="nav-link" href="#">
+            <span><i class="fas fa-plus-circle fa-lg"></i></span>
+          </a>
+        </li>
+        <li class="nav-item dropdown me-3 me-lg-1">
+          <a
+            class="nav-link dropdown-toggle hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-comments fa-lg"></i>
+  
+            <span class="badge rounded-pill badge-notification bg-danger">6</span>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <a class="dropdown-item" href="#">Some news</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Another news</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown me-3 me-lg-1">
+          <a
+            class="nav-link dropdown-toggle hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-bell fa-lg"></i>
+            <span class="badge rounded-pill badge-notification bg-danger">12</span>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <a class="dropdown-item" href="#">Some news</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Another news</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown me-3 me-lg-1">
+          <a
+            class="nav-link dropdown-toggle hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-chevron-circle-down fa-lg"></i>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <a class="dropdown-item" href="#">Some news</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Another news</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!-- Right elements -->
+    </div>
+  </nav>
+    <div class="row" style="margin-top: 5px;">
+        <div class="col-2">
+            <div class="list-group list-group-light">
+                <a
+                  href="#"
+                  class="list-group-item list-group-item-action px-3 border-0"
+                  aria-current="true"
+                  >Cras justo odio</a
+                >
+                <a
+                  href="#"
+                  class="list-group-item list-group-item-action px-3 border-0"
+                  >Dapibus ac facilisis in</a
+                >
+                <a
+                  href="#"
+                  class="list-group-item list-group-item-action px-3 border-0"
+                  >Morbi leo risus</a
+                >
+                <a
+                  href="#"
+                  class="list-group-item list-group-item-action px-3 border-0"
+                  >Porta ac consectetur ac</a
+                >
+                <a
+                  class="list-group-item list-group-item-action px-3 border-0 disabled"
+                  >Vestibulum at eros</a
+                >
+              </div>
+        </div>
+        <div class="col-10">
+
+        </div>
 </body>
+
 </html>
