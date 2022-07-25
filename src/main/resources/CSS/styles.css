@@ -1,0 +1,29 @@
+.navbar{
+    box-shadow: 0 4px 2px -2px #d8cece;
+}
+
+
+.section__headline{
+	bottom: 0px;
+	position: fixed;	
+	width: 73%;
+}
+
+.list-group{
+	display: block;
+	position: relative;
+	height: 540px;	
+	overflow-y: scroll;
+}
+
+.chat-scroll{
+	display: block;
+	position: relative;
+	height: 470px;	
+	overflow-y: scroll;
+}
+
+.message_circle{
+	border-radius: 10px 10px 10px;
+}
+
