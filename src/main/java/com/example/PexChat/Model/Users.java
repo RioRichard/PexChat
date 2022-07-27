@@ -1,22 +1,45 @@
 package com.example.PexChat.Model;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 import java.util.UUID;
+
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table
-public class Users {
+public class Users implements Serializable {
     @Id
+    @Type(type = "uuid-char")
     UUID user_id;
     String username;
     
     String backup_code;
     Date date_created;
     String avartar;
+
+    @OneToMany(mappedBy = "user")
+    
+    List<Messenges> messages;
+    
+    
+
+    public Users(UUID user_id, String username, String backup_code, Date date_created, String avartar,
+            List<Messenges> messages) {
+        this.user_id = user_id;
+        this.username = username;
+        this.backup_code = backup_code;
+        this.date_created = date_created;
+        this.avartar = avartar;
+        this.messages = messages;
+    }
 
     public Users() {
     }
@@ -76,6 +99,14 @@ public class Users {
 
     public void setAvartar(String avartar) {
         this.avartar = avartar;
+    }
+
+    public List<Messenges> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Messenges> messages) {
+        this.messages = messages;
     }
 
 }
