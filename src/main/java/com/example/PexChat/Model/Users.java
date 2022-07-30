@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 public class Users implements Serializable {
@@ -20,6 +22,9 @@ public class Users implements Serializable {
     @Type(type = "uuid-char")
     UUID user_id;
     String username;
+
+    @JsonIgnore
+    byte[] password;
     
     String backup_code;
     Date date_created;
@@ -69,13 +74,13 @@ public class Users implements Serializable {
         this.username = username;
     }
 
-    // public byte[] getPassword() {
-    //     return password;
-    // }
+    public byte[] getPassword() {
+        return password;
+    }
 
-    // public void setPassword(byte[] password) {
-    //     this.password = password;
-    // }
+    public void setPassword(byte[] password) {
+        this.password = password;
+    }
 
     public String getBackup_code() {
         return backup_code;
