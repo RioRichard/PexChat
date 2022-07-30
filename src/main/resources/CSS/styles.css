@@ -27,3 +27,41 @@
 	border-radius: 10px 10px 10px;
 }
 
+.header_test{
+	text-align: left;
+	position: relative;
+	top: 1px;
+}
+
+.logo_test{
+	text-align: left;
+	position: relative;
+	top: 0px;
+	font-size: 20px;
+}
+
+.btn_setting{
+	margin: 3px 0;
+	border: 0px;
+	display: inline-flex;
+	align-items: center;
+}
+
+.btn_setting:hover{
+	background-color: rgb(192,192,192);
+}
+
+.header_right{
+	margin: 0 55px;
+	position: relative;
+	top: 40px;
+}
+
+.infor{
+	margin: 50px 0;
+}
+.active{
+	background-color: black;
+	color: white;
+}
+
