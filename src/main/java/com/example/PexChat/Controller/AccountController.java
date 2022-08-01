@@ -17,7 +17,7 @@ import com.example.PexChat.Service.UserService;
 @Controller
 public class AccountController {
     @RequestMapping("/resigter")
-    String login(Model model) {
+    String register(Model model) {
         model.addAttribute("something", "some thing from controller");
         return "resigterPage";
     }
@@ -36,5 +36,10 @@ public class AccountController {
         userService.saveUser(user);
         System.out.println(now);
         return "redirect:/";
+    }
+    @RequestMapping("/login")
+    String login(Model model) {
+        model.addAttribute("something", "some thing from controller");
+        return "loginPage";
     }
 }
