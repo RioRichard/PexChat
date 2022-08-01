@@ -1,4 +1,4 @@
-package com.example.demo.Helper;
+package com.example.PexChat.Helper;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
