@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.example.PexChat.Model.Users;
 @Repository
 public interface UserRepo extends JpaRepository<Users, UUID> {
-
+    public Users findByUsername(String username);
+    public Users findByUsernameAndPassword(String username, String Password);
 }
