@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
         integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/styles.css">
     <title>Chỉnh sửa</title>
 </head>
 
@@ -23,33 +24,43 @@
             <div class="col-1">
             </div>
             <div class="col-3">
-                <img class="logo_test" src="/src/main/resources/Image/logo.jfif" height="40" alt="MDB Logo"
+                <img class="logo_test" src="/Image/logo.jfif" height="40" alt="MDB Logo"
                     loading="lazy" />
                 <div class="header_test">
                     <h3>Thông tin tài khoản</h3>
-                    <h6 style="font-weight: lighter; margin: 13px 0;">Quản lý phần cài đặt tài khoản và trải nghiệm kết
+                    <h6 style="font-weight: lighter; margin: 13px 0;">Quản lý phần cài đặt tài khoản và trải nghiệm
+                        kết
                         nối trên các công nghệ của Pex</h6>
-                    <a  class="btn btn_setting active"
-                        style="width: 320px; height: 56px; font-weight: bold;"><i class="fa-solid fa-user"></i> Tài
+                    <a class="btn btn_setting active" style="width: 320px; height: 56px; font-weight: bold;"><i
+                            class="fa-solid fa-user"></i> Tài
                         khoản</a>
-                    <a href="SecurityPage.html" class="btn btn_setting"
-                        style="width: 320px; height: 56px; font-weight: bold;"><i class="fa-solid fa-shield-halved"></i>
-                        Mật khẩu và bảo mật</a>
+                    <form th:action="@{/Security}" method="post">
+                        <a href="/Security" class="btn btn_setting"
+                            style="width: 320px; height: 56px; font-weight: bold;"><i
+                                class="fa-solid fa-shield-halved"></i>
+                            Mật khẩu và bảo mật</a>
+                    </form>
                 </div>
             </div>
             <div class="col-8">
                 <div class="header_right">
                     <h4>Thông tin cá nhân</h4>
                     <div class="infor">
-                        <h5 >Thông tin liên hệ:</h5>
+                        <h5>Thông tin liên hệ:</h5>
                         <div class="form-outline mb-3" style="width: 680px;">
                             <input class="form-control" id="formControlDisabled" type="text"
-                                placeholder="anhkhoiphamtran21@gmail.com" aria-label="disabled input example" disabled/>
+                                aria-label="disabled input example"
+                                disabled
+                                th:field="*{info.username}" 
+                                />
                         </div>
-                        <h5 >Ngày tạo:</h5>
+                        <h5>Ngày tạo:</h5>
                         <div class="form-outline mb-3" style="width: 680px;">
-                            <input class="form-control" id="formControlDisabled" type="text"
-                                placeholder="27/07/2022" aria-label="disabled input example" disabled/>
+                            <input class="form-control" id="formControlDisabled" type="text" 
+                                aria-label="disabled input example" 
+                                disabled 
+                                th:field="*{info.date_created}" 
+                                />
                         </div>
                     </div>
                 </div>
