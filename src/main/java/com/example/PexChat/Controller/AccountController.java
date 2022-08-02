@@ -23,6 +23,7 @@ import com.example.PexChat.Helper.Helper;
 import com.example.PexChat.Model.Users;
 import com.example.PexChat.Repo.UserRepo;
 import com.example.PexChat.Service.UserService;
+import com.example.PexChat.SideModel.ChangePassword;
 import com.example.PexChat.SideModel.ReturnJsonObject;
 
 import lombok.var;
@@ -88,13 +89,21 @@ public class AccountController {
     // setting profile
     @RequestMapping("/accounts")
     String setting(Model model) {
-        model.addAttribute("info",userService.GetUser("1b541af7-3d0c-4fad-8be4-25276b55380d"));
+        model.addAttribute("info",userService.GetCurrentUser());
         return "SettingPage";
     }
 
-    @GetMapping("/password")
-    String Security() {
+    @RequestMapping("/password")
+    String Security(Model model) {
+        model.addAttribute("something","");
+        return "SecurityPage";
+    }
 
+    @PostMapping("/changepassword")
+    String ChangePassword(@ModelAttribute("password")  ChangePassword password , Model model){
+        model.addAttribute("something",userService.ChangePassword(password));
+        System.out.println(password.getOldPass());
+        System.out.println(password.getNewPass());
         return "SecurityPage";
     }
 }

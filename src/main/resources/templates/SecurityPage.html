@@ -38,30 +38,31 @@
                 </div>
             </div>
             <div class="col-8">
-                <form>
+                <form th:action="@{/changepassword}" th:object="${password}" method="post">
                     <div class="header_right">
                         <h4>Thông tin cá nhân</h4>
                         <div class="infor">
                             <h5>Mật khẩu cũ:</h5>
                             <div class="form-outline">
-                                <input type="text" id="form12" class="form-control" />
+                                <input type="password" id="form12" class="form-control" field="*{oldPass}" name="oldPass" />
                                 <label class="form-label" for="form12"></label>
                             </div>
                             <h5>Mật khẩu mới:</h5>
                             <div class="form-outline">
-                                <input type="text" id="form12" class="form-control" />
+                                <input type="password" id="form12" class="form-control" field="*{newPass}" name="newPass" />
                                 <label class="form-label" for="form12"></label>
                             </div>
                             <h5>Xác nhận mật:</h5>
                             <div class="form-outline">
-                                <input type="text" id="form12" class="form-control" />
+                                <input type="password" id="form12" class="form-control" />
                                 <label class="form-label" for="form12"></label>
                             </div>
-                            <button type="button" class="btn btn-primary"
+                            <button type="submit" class="btn btn-primary"
                                 style="margin-left: 640px; width: 100px;">Lưu</button>
                         </div>
                     </div>
                 </form>
+                <h5 th:text="${something}"></h5>
             </div>
         </div>
     </div>
