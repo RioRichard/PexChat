@@ -24,8 +24,7 @@
             <div class="col-1">
             </div>
             <div class="col-3">
-                <img class="logo_test" src="/Image/logo.jfif" height="40" alt="MDB Logo"
-                    loading="lazy" />
+                <img class="logo_test" src="/Image/logo.jfif" height="40" alt="MDB Logo" loading="lazy" />
                 <div class="header_test">
                     <h3>Thông tin tài khoản</h3>
                     <h6 style="font-weight: lighter; margin: 13px 0;">Quản lý phần cài đặt tài khoản và trải nghiệm
@@ -49,23 +48,37 @@
                         <h5>Thông tin liên hệ:</h5>
                         <div class="form-outline mb-3" style="width: 680px;">
                             <input class="form-control" id="formControlDisabled" type="text"
-                                aria-label="disabled input example"
-                                disabled
-                                th:field="*{info.username}" 
-                                />
+                                aria-label="disabled input example" disabled th:field="*{info.username}" />
                         </div>
                         <h5>Ngày tạo:</h5>
                         <div class="form-outline mb-3" style="width: 680px;">
-                            <input class="form-control" id="formControlDisabled" type="text" 
-                                aria-label="disabled input example" 
-                                disabled 
-                                th:field="*{info.date_created}" 
-                                />
+                            <input class="form-control" id="formControlDisabled" type="text"
+                                aria-label="disabled input example" disabled th:field="*{info.date_created}" />
+
+                        </div>
+                        <h5>Hình đại diện: </h5>
+                        <div class="form-outline mb-3" style="width: 680px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="../Image/avt2.jpg" alt="" style="width: 100%;">
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-flex justify-content-end">
+                                        <input type="file" id="selectedFile" style="display: none;"/>
+                                        <input type="button" class="btn btn-danger me-2" value="Chọn ảnh"
+                                            onclick="document.getElementById('selectedFile').click();"/>
+                                        <button type="submit" class="btn btn-primary" style="width: 100px;">Lưu</button>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 
 
