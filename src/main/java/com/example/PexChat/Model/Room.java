@@ -18,9 +18,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table
 public class Room implements Serializable{
+    public static final int MESSAGE = 1;
+    public static final int IMAGE = 2;
+    public static final int JOIN = 3;
+
     @Id
     @Type(type = "uuid-char")
     UUID room_id ;
+    
     String room_name;
     Date date_created;
 
