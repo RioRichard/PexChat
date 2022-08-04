@@ -12,10 +12,21 @@ import com.example.PexChat.Model.Room;
 import com.example.PexChat.Service.MessengesService;
 import com.google.gson.Gson;
 
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
 @Controller
 public class ChatController {
+    
+
     @Autowired
     MessengesService messengesService;
+    @GetMapping("/")
+    public String home() {
+        return "homepage";
+    }
+    
 
     @ResponseBody
     @GetMapping("/test")
@@ -32,3 +43,5 @@ public class ChatController {
 
     // }
 }
+
+    

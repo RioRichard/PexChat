@@ -2,16 +2,16 @@ package com.example.PexChat.Controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
+
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.PexChat.Helper.Helper;
 import com.example.PexChat.Model.Users;
-import com.example.PexChat.Repo.UserRepo;
+
 import com.example.PexChat.Service.UserService;
 import com.example.PexChat.SideModel.ChangePassword;
 import com.example.PexChat.SideModel.ReturnJsonObject;
@@ -87,6 +87,10 @@ public class AccountController {
     // setting profile
     @RequestMapping("/accounts")
     String setting(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "loginPage";
+        }
         model.addAttribute("info",userService.GetCurrentUser());
         return "SettingPage";
     }
