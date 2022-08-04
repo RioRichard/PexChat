@@ -1,17 +1,13 @@
 'use strict';
 
 
-var messageForm = document.querySelector('#messageForm');
-var messageInput = document.querySelector('#message');
-var messageArea = document.querySelector('#messageArea');
-var connectingElement = document.querySelector('#connecting');
 
 var stompClient = null;
 var username = null;
  
 
 function connect() {
-    username = document.querySelector('#username').innerText.trim();
+    username = "test";
      
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
@@ -32,7 +28,7 @@ function onConnected() {
         JSON.stringify({sender: username, type: 'JOIN'})
     )
 
-    connectingElement.classList.add('hidden');
+    // connectingElement.classList.add('hidden');
 }
 
 
@@ -58,35 +54,36 @@ function sendMessage(event) {
 
 
 function onMessageReceived(payload) {
-    var message = JSON.parse(payload.body);
+    // var message = JSON.parse(payload.body);
 
-    var messageElement = document.createElement('li');
+    // var messageElement = document.createElement('li');
 
-    if(message.type === 'JOIN') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
-    } else if (message.type === 'LEAVE') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
-    } else {
-        messageElement.classList.add('chat-message');   
-        var usernameElement = document.createElement('strong');
-        usernameElement.classList.add('nickname');
-        var usernameText = document.createTextNode(message.sender);
-        var usernameText = document.createTextNode(message.sender);
-        usernameElement.appendChild(usernameText);
-        messageElement.appendChild(usernameElement);
-    }
+    // if(message.type === 'JOIN') {
+    //     messageElement.classList.add('event-message');
+    //     message.content = message.sender + ' joined!';
+    // } else if (message.type === 'LEAVE') {
+    //     messageElement.classList.add('event-message');
+    //     message.content = message.sender + ' left!';
+    // } else {
+    //     messageElement.classList.add('chat-message');   
+    //     var usernameElement = document.createElement('strong');
+    //     usernameElement.classList.add('nickname');
+    //     var usernameText = document.createTextNode(message.sender);
+    //     var usernameText = document.createTextNode(message.sender);
+    //     usernameElement.appendChild(usernameText);
+    //     messageElement.appendChild(usernameElement);
+    // }
 
-    var textElement = document.createElement('span');
-    var messageText = document.createTextNode(message.content);
-    textElement.appendChild(messageText);
+    // var textElement = document.createElement('span');
+    // var messageText = document.createTextNode(message.content);
+    // textElement.appendChild(messageText);
 
-    messageElement.appendChild(textElement);
+    // messageElement.appendChild(textElement);
 
-    messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
+    // messageArea.appendChild(messageElement);
+    // messageArea.scrollTop = messageArea.scrollHeight;
+    console.log(payload);
 }
  
  
-messageForm.addEventListener('submit', sendMessage, true);
+// messageForm.addEventListener('submit', sendMessage, true);
