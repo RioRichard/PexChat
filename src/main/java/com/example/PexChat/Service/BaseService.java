@@ -1,6 +1,6 @@
 package com.example.PexChat.Service;
 
-import org.apache.catalina.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -18,4 +18,9 @@ public abstract class BaseService {
 
     @Autowired
     protected MessengesRepo messengesRepo;
+
+    public Users getCurrentUser() {
+        var userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepo.findByUsername(userName); 
+    }
 }

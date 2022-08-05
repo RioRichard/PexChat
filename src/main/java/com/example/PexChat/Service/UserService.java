@@ -37,8 +37,7 @@ public class UserService extends BaseService {
     }
 
     public String ChangePassword(ChangePassword changepassword){
-        var userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        var user = userRepo.findByUsername(userName); 
+        var user = super.getCurrentUser();
         var check = Arrays.equals(user.getPassword(), Helper.Hash(changepassword.getOldPass()));
         if(check){
             user.setPassword(Helper.Hash(changepassword.getNewPass()));

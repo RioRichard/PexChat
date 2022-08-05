@@ -17,11 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ChatController {
+public class ChatController extends BaseController {
     
 
-    @Autowired
-    MessengesService messengesService;
+    
     @GetMapping("/")
     public String home() {
         return "homepage";
@@ -35,13 +34,13 @@ public class ChatController {
         return gson.toJson(messengesService.test());
     }
 
-    // @SubscribeMapping("/room")
-    // public List<Room> rooms() {
-    //     return messengesService.getRooms();
+    @SubscribeMapping("/room")
+    public List<Room> rooms() {
+        return roomService.getRooms();
 
 
 
-    // }
+    }
 }
 
     
