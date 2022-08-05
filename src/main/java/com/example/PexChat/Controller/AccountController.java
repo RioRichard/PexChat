@@ -39,26 +39,28 @@ public class AccountController {
     private UserService userService;
 
     @PostMapping(value = "/Resigter")
-    String addAccount(@ModelAttribute("user") Users user,RedirectAttributes redirAttrs) throws IOException {
+    String addAccount(@ModelAttribute("user") Users user) throws IOException {
         user.setUser_id(UUID.randomUUID());
-        user.setAvartar("avartar");
-        user.setBackup_code("123");
+        user.setAvartar("default-avatar");
+        user.setBackup_code(Helper.RandomString(8));
         Date now = new Date(System.currentTimeMillis());
         user.setDate_created(now);
         String pass = "";
         System.out.println("username :"+user.getUsername());
-        for (var x : user.getPassword()) {
+        System.out.println("password :"+user.getPassword());    
+        String string = new String(user.getPassword());
+        for (var x : string.split("")) {
             pass+=x;
+            System.out.println(x);
         }
+        System.out.println(Helper.Hash(pass));
         user.setPassword(Helper.Hash(pass));
         userService.saveUser(user);
-        System.out.println(now);
-        redirAttrs.addFlashAttribute("error", "The error XYZ occurred.");
+        System.out.println("password :"+user.getPassword());
         return "redirect:/login";
     }
     @RequestMapping("/login")
     String login(Model model) {
-        model.addAttribute("something", "some thing from controller");
         return "loginPage";
     }
     // @PostMapping (value = "/login")
