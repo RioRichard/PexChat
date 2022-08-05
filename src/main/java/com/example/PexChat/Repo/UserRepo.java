@@ -10,4 +10,5 @@ import com.example.PexChat.Model.Users;
 public interface UserRepo extends JpaRepository<Users, UUID> {
     public Users findByUsername(String username);
     public Users findByUsernameAndPassword(String username, String Password);
+    
 }

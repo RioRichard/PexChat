@@ -22,11 +22,11 @@ public class test {
 
     @Autowired
     public MessengesService messengesService;
-    @RequestMapping("/test")
+    // @RequestMapping("/test")
     
-    public Object testController(Model attr) {
-        var x = messengesService.test();
+    // // public Object testController(Model attr) {
+    // //     var x = messengesService.test();
         
-        return x;
-    }
+    // //     return x;
+    // // }
 }
