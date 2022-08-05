@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.PexChat.Helper.Helper;
 import com.example.PexChat.Model.Users;
@@ -34,7 +35,7 @@ public class AccountController {
     private UserService userService;
 
     @PostMapping(value = "/Resigter")
-    String addAccount(@ModelAttribute("user") Users user) throws IOException {
+    String addAccount(@ModelAttribute("user") Users user,RedirectAttributes redirAttrs) throws IOException {
         user.setUser_id(UUID.randomUUID());
         user.setAvartar("avartar");
         user.setBackup_code("123");
@@ -47,9 +48,9 @@ public class AccountController {
         }
         user.setPassword(Helper.Hash(pass));
         userService.saveUser(user);
-        
         System.out.println(now);
-        return "redirect:/";
+        redirAttrs.addFlashAttribute("error", "The error XYZ occurred.");
+        return "redirect:/login";
     }
     @RequestMapping("/login")
     String login(Model model) {
@@ -69,7 +70,8 @@ public class AccountController {
     // }
     @ResponseBody
     @RequestMapping("/LogSuccess")
-    public Object LogSuccess() {
+    public Object LogSuccess(RedirectAttributes redirAttrs) {
+        redirAttrs.addFlashAttribute("error", "The error XYZ occurred.");
         return new ReturnJsonObject(true, "Đăng nhập thành công, bạn sẽ quay về trang chủ", "/");
     }
 

@@ -57,7 +57,7 @@
                         </span>
                     </div>
                     <div class="container-login100-form-btn">
-                        <button onclick="show()" type="submit" class="login100-form-btn">
+                        <button onclick="show()" on type="submit" class="login100-form-btn">
                             Resigster
                         </button>
                     </div>
@@ -96,8 +96,8 @@
     </script>
     <script>
         function show() {
-            const x = document.getElementById('pass').value;
-            console.log(x);
+            alert("Đăng kí thành công, bạn sẽ được chuyển về trang đăng nhập")
+            window.location.href="/login";
         }
     </script>
     <script src="js/main.js"></script>
