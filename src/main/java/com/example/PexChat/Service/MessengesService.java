@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.PexChat.Model.Messenges;
 import com.example.PexChat.Model.Room;
+import com.example.PexChat.Model.Users;
+import com.example.PexChat.SideModel.MessegesSideModel;
 import com.example.PexChat.Repo.MessengesRepo;
 
 @Service
@@ -36,14 +38,27 @@ public class MessengesService extends BaseService {
         }
         return list;
     }
+
+    public List<Messenges> getMesseges(Room room){
+        List<Messenges> mess = messengesRepo.findByRoom(room);
+        return mess;
+    }
     
     public void addMesseges(Messenges msgs) {
         messengesRepo.save(msgs);
     }
-    @Autowired
-    MessengesRepo messrepo;
+    public Messenges addMessengesFromChat(MessegesSideModel msgs)  {
+        var room = new Room();
+        room.setRoom_id(UUID.fromString(msgs.getRoom_id()));
+        var user = new Users();
+        user.setUser_id(UUID.fromString(msgs.getUser_id()));
+        var messages = new Messenges(UUID.randomUUID(), user, room, msgs.getContent(), new Date(System.currentTimeMillis()), msgs.getMsg_type());
+        this.addMesseges(messages);
+        return messages;
+    }
+    
     public List<Messenges> getbyroom (Room room){
-        List <Messenges> mess = messrepo.findByRoom(room);
+        List <Messenges> mess = messengesRepo.findByRoom(room);
         return mess;
     }
 }
