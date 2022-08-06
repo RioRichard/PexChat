@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <title>Resigster</title>
+    <title>Register</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="../Image/icons/favicon.ico" />
@@ -28,12 +28,14 @@
                 <div class="login100-pic js-tilt" data-tilt>
                     <img src="../Image/img-01.png" style="margin-top: 59px;" alt="IMG">
                 </div>
-
-                <form class="login100-form validate-form" th:action="@{/Resigter}" th:object="${user}" method="post">
+                <form id="signup" class="login100-form validate-form" th:action="@{/Resigter}" th:object="${user}"
+                    method="post">
                     <span class="login100-form-title">
                         Resigster
                     </span>
-                    <div class="wrap-input100 validate-input" data-validate="Username is required">
+                    <div id="success" class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                    <div id="fail" class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                    <div class="wrap-input100 validate-input" data-validate="Hãy nhập Username">
                         <input class="input100" type="text" field="*{username}" name="username" placeholder="Username">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
@@ -41,7 +43,7 @@
                         </span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <div class="wrap-input100 validate-input" data-validate="Hãy nhập Password">
                         <input id="pass" class="input100" type="password" name="password" placeholder="Password"
                             field="*{password}">
                         <span class="focus-input100"></span>
@@ -49,15 +51,15 @@
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="wrap-input100 validate-input" data-validate="Retype password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Retype Password">
+                    <div class="wrap-input100 validate-input" data-validate="Hãy nhập lại mật khẩu">
+                        <input id="repass" class="input100" type="password" name="pass" placeholder="Retype Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="container-login100-form-btn">
-                        <button onclick="show()" type="submit" class="login100-form-btn">
+                        <button on type="submit" class="login100-form-btn">
                             Resigster
                         </button>
                     </div>
@@ -72,7 +74,7 @@
                     </div>
 
                     <div class="text-center p-t-136">
-                        <a class="txt2" href="#">
+                        <a style="font-size: 20px;" class="txt2" href="/login">
                             Back to login
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
@@ -95,10 +97,36 @@
         })
     </script>
     <script>
-        function show() {
-            const x = document.getElementById('pass').value;
-            console.log(x);
-        }
+        // function show() {
+        //     alert("Đăng kí thành công, bạn sẽ được chuyển về trang đăng nhập")
+        //     window.location.href = "/login";
+        // }
+        // function check(e) {
+        //     // e.preventDefault();
+        //     if (document.getElementById("pass").value != document.getElementById("repass").value) {
+        //         alert("Nhap sai mk");
+        //     }
+        //     else {
+        //         alert("Đăng kí thành công, bạn sẽ được chuyển về trang đăng nhập")
+        //     }
+        // }
+        const form = document.querySelector('#signup');
+        const pass = document.querySelector('#pass');
+        const repass = document.querySelector('#repass');
+        const status=document.querySelector("#fail");
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            console.log(status);
+            if (pass.value != repass.value) {
+                alert("Mật khẩu không khớp")
+            }
+            else if(pass.value!="" && repass.value!="") {
+                form.submit();
+                if (status!=null) {
+                    alert("Thành công")
+                }
+            }
+        });
     </script>
     <script src="js/main.js"></script>
 </body>

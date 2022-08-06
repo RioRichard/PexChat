@@ -51,7 +51,7 @@
     <div class="container-fluid justify-content-between">
       <div class="d-flex">
         <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#" style="margin: 0px;">
-          <img src="/src/main/resources/Image/logo.jfif" height="60" alt="MDB Logo" loading="lazy" />
+          <img src="/Image/logo.jfif" height="60" alt="MDB Logo" loading="lazy" />
         </a>
         <form class="input-group w-auto my-auto d-none d-sm-flex">
           <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search"
@@ -69,7 +69,7 @@
       <!-- Right elements -->
       <ul class="navbar-nav flex-row">
         <li class="nav-item me-3 me-lg-1">
-          <a class="nav-link d-sm-flex align-items-sm-center" href="\accounts">
+          <a class="nav-link d-sm-flex align-items-sm-center" href="#">
             <img src="/src/main/resources/static/Image/avt.jpg" class="rounded-circle" height="22" alt=""
               loading="lazy" />
             <strong class="d-none d-sm-block ms-1">Khôi Phạm</strong>
@@ -113,11 +113,56 @@
           </div>
 
         </div>
-        <div class="list-group list-group-light" th:each="room : $room{listRoom}">
+        <div class="list-group list-group-light">
           <a href="#" class="list-group-item list-group-item-action px-3 border-0" aria-current="true">
             <img src="/src/main/resources/static/Image/avt2.jpg" alt="" class="border rounded-circle"
               style="height: 48px;" width="48px">
-            <strong th:text="${room.room_name}"></strong>
+            <strong>Tuấn Khoa</strong>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
+            <img src="/src/main/resources/static/Image/avt3.jpg" alt="" class="border rounded-circle"
+              style="height: 48px;" width="48px">
+            <strong>Thanh NgocHuu Phung</strong>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
+            <img src="/src/main/resources/static/Image/avt3.jpg" alt="" class="border rounded-circle"
+              style="height: 48px;" width="48px">
+            <strong>Thanh NgocHuu Phung</strong>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
+            <img src="/src/main/resources/static/Image/avt3.jpg" alt="" class="border rounded-circle"
+              style="height: 48px;" width="48px">
+            <strong>Thanh NgocHuu Phung</strong>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
+            <img src="/src/main/resources/static/Image/avt3.jpg" alt="" class="border rounded-circle"
+              style="height: 48px;" width="48px">
+            <strong>Thanh NgocHuu Phung</strong>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
+            <img src="/src/main/resources/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
+              width="48px">
+            <strong>Thanh NgocHuu Phung</strong>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
+            <img src="/src/main/resources/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
+              width="48px">
+            <strong>Thanh NgocHuu Phung</strong>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
+            <img src="/src/main/resources/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
+              width="48px">
+            <strong>Thanh NgocHuu Phung</strong>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
+            <img src="/src/main/resources/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
+              width="48px">
+            <strong>Thanh NgocHuu Phung</strong>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
+            <img src="/src/main/resources/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
+              width="48px">
+            <strong>Thanh NgocHuu Phung</strong>
           </a>
         </div>
       </div>
@@ -125,7 +170,7 @@
       <div class="col-9">
         <section class="">
           <div class="sticky-top">
-            <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 38px;"
+            <img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 38px;"
               width="38px">
             <strong>Tuấn Khoa</strong>
             <hr>
@@ -133,98 +178,96 @@
           <div class="chat-scroll">
 
             <!--tin nhắn của bạn bè-->
-            <form action="@{/room}">
-              <div class="d-flex justify-content-start">
-                <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
-                  style="height: 30px;" width="30px">
-                <p class="bg-light p-3 message_circle" style="max-width: 533px;">
-                  gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  44444444444444444444444444444444444444
-                  44444444444444444444444444444444444444
-                  4444444444444444444444444444444444444
-                  <small class="float-end">14:52</small>
-                </p>
-              </div>
-              <!--tin nhắn của bạn bè-->
-  
-              <!--tin nhắn của mình-->
-              <div class="d-flex justify-content-end" style="margin-right: 50px;">
-                <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
-                  gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  44444444444444444444444444444444444444
-                  44444444444444444444444444444444444444
-                  4444444444444444444444444444444444444
-                  <small class="float-end">14:52</small>
-                </p>
-              </div>
-              <!--tin nhắn của mình-->
-              <div class="d-flex justify-content-start">
-                <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
-                  style="height: 30px;" width="30px">
-                <p class="bg-light p-3 message_circle" style="max-width: 533px;">
-                  gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  44444444444444444444444444444444444444
-                  44444444444444444444444444444444444444
-                  4444444444444444444444444444444444444
-                  <small class="float-end">14:52</small>
-                </p>
-              </div>
-              <!--tin nhắn của bạn bè-->
-  
-              <!--tin nhắn của mình-->
-              <div class="d-flex justify-content-end" style="margin-right: 50px;">
-                <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
-                  gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  44444444444444444444444444444444444444
-                  44444444444444444444444444444444444444
-                  4444444444444444444444444444444444444
-                  <small class="float-end">14:52</small>
-                </p>
-              </div>
-              <!--tin nhắn của mình-->
-              <div class="d-flex justify-content-start">
-                <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
-                  style="height: 30px;" width="30px">
-                <p class="bg-light p-3 message_circle" style="max-width: 533px;">
-                  gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  44444444444444444444444444444444444444
-                  44444444444444444444444444444444444444
-                  4444444444444444444444444444444444444
-                  <small class="float-end">14:52</small>
-                </p>
-              </div>
-              <!--tin nhắn của bạn bè-->
-  
-              <!--tin nhắn của mình-->
-              <div class="d-flex justify-content-end" style="margin-right: 50px;">
-                <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
-                  gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  44444444444444444444444444444444444444
-                  44444444444444444444444444444444444444
-                  4444444444444444444444444444444444444
-                  <small class="float-end">14:52</small>
-                </p>
-              </div>
-              <!--tin nhắn của mình-->
-            </form>
+            <div class="d-flex justify-content-start">
+              <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
+                style="height: 30px;" width="30px">
+              <p class="bg-light p-3 message_circle" style="max-width: 533px;">
+                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                44444444444444444444444444444444444444
+                44444444444444444444444444444444444444
+                4444444444444444444444444444444444444
+                <small class="float-end">14:52</small>
+              </p>
+            </div>
+            <!--tin nhắn của bạn bè-->
+
+            <!--tin nhắn của mình-->
+            <div class="d-flex justify-content-end" style="margin-right: 50px;">
+              <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
+                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                44444444444444444444444444444444444444
+                44444444444444444444444444444444444444
+                4444444444444444444444444444444444444
+                <small class="float-end">14:52</small>
+              </p>
+            </div>
+            <!--tin nhắn của mình-->
+            <div class="d-flex justify-content-start">
+              <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
+                style="height: 30px;" width="30px">
+              <p class="bg-light p-3 message_circle" style="max-width: 533px;">
+                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                44444444444444444444444444444444444444
+                44444444444444444444444444444444444444
+                4444444444444444444444444444444444444
+                <small class="float-end">14:52</small>
+              </p>
+            </div>
+            <!--tin nhắn của bạn bè-->
+
+            <!--tin nhắn của mình-->
+            <div class="d-flex justify-content-end" style="margin-right: 50px;">
+              <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
+                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                44444444444444444444444444444444444444
+                44444444444444444444444444444444444444
+                4444444444444444444444444444444444444
+                <small class="float-end">14:52</small>
+              </p>
+            </div>
+            <!--tin nhắn của mình-->
+            <div class="d-flex justify-content-start">
+              <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
+                style="height: 30px;" width="30px">
+              <p class="bg-light p-3 message_circle" style="max-width: 533px;">
+                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                44444444444444444444444444444444444444
+                44444444444444444444444444444444444444
+                4444444444444444444444444444444444444
+                <small class="float-end">14:52</small>
+              </p>
+            </div>
+            <!--tin nhắn của bạn bè-->
+
+            <!--tin nhắn của mình-->
+            <div class="d-flex justify-content-end" style="margin-right: 50px;">
+              <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
+                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                44444444444444444444444444444444444444
+                44444444444444444444444444444444444444
+                4444444444444444444444444444444444444
+                <small class="float-end">14:52</small>
+              </p>
+            </div>
+            <!--tin nhắn của mình-->
         </section>
         <!--Khung Chat-->
 
