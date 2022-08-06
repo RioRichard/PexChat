@@ -28,13 +28,14 @@
                 <div class="login100-pic js-tilt" data-tilt>
                     <img src="../Image/img-01.png" style="margin-top: 59px;" alt="IMG">
                 </div>
-
                 <form id="signup" class="login100-form validate-form" th:action="@{/Resigter}" th:object="${user}"
                     method="post">
                     <span class="login100-form-title">
                         Resigster
                     </span>
-                    <div class="wrap-input100 validate-input" data-validate="Username is required">
+                    <div id="success" class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                    <div id="fail" class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                    <div class="wrap-input100 validate-input" data-validate="Hãy nhập Username">
                         <input class="input100" type="text" field="*{username}" name="username" placeholder="Username">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
@@ -42,7 +43,7 @@
                         </span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <div class="wrap-input100 validate-input" data-validate="Hãy nhập Password">
                         <input id="pass" class="input100" type="password" name="password" placeholder="Password"
                             field="*{password}">
                         <span class="focus-input100"></span>
@@ -50,7 +51,7 @@
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="wrap-input100 validate-input" data-validate="Retype password is required">
+                    <div class="wrap-input100 validate-input" data-validate="Hãy nhập lại mật khẩu">
                         <input id="repass" class="input100" type="password" name="pass" placeholder="Retype Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
@@ -73,7 +74,7 @@
                     </div>
 
                     <div class="text-center p-t-136">
-                        <a class="txt2" href="/login">
+                        <a style="font-size: 20px;" class="txt2" href="/login">
                             Back to login
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
@@ -110,17 +111,20 @@
         //     }
         // }
         const form = document.querySelector('#signup');
-        const pass=document.querySelector('#pass');
-        const repass=document.querySelector('#repass');
+        const pass = document.querySelector('#pass');
+        const repass = document.querySelector('#repass');
+        const status=document.querySelector("#fail");
         form.addEventListener('submit', function (e) {
             e.preventDefault();
-            console.log(pass.value);
-            if (pass.value!=repass.value) {
+            console.log(status);
+            if (pass.value != repass.value) {
                 alert("Mật khẩu không khớp")
             }
-            else{
-                alert("Đăng kí thành công, bạn sẽ được chuyển về form đăng nhập");
+            else if(pass.value!="" && repass.value!="") {
                 form.submit();
+                if (status!=null) {
+                    alert("Thành công")
+                }
             }
         });
     </script>

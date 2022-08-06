@@ -25,7 +25,9 @@ public class UserService extends BaseService {
     public void saveUser(Users user){
         userRepo.save(user);
     }
-
+    public Users findByUser(String username){
+        return userRepo.findByUsername(username);
+    }
     public Users GetUser(String id){
         return userRepo.findById(UUID.fromString(id)).get();
     }

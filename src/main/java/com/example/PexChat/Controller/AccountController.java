@@ -39,46 +39,56 @@ public class AccountController {
     private UserService userService;
 
     @PostMapping(value = "/Resigter")
-    String addAccount(@ModelAttribute("user") Users user) throws IOException {
-        user.setUser_id(UUID.randomUUID());
-        user.setAvartar("default-avatar");
-        user.setBackup_code(Helper.RandomString(8));
-        Date now = new Date(System.currentTimeMillis());
-        user.setDate_created(now);
-        String pass = "";
-        System.out.println("username :"+user.getUsername());
-        System.out.println("password :"+user.getPassword());    
-        String string = new String(user.getPassword());
-        for (var x : string.split("")) {
-            pass+=x;
-            System.out.println(x);
+    String addAccount(@ModelAttribute("user") Users user, RedirectAttributes redirAttrs) throws IOException {
+        var checkUser = userService.findByUser(user.getUsername());
+        if (checkUser != null) {
+            redirAttrs.addFlashAttribute("error", "Username đã tồn tại");
+            return "redirect:/resigter";
+        } else {
+            user.setUser_id(UUID.randomUUID());
+            user.setAvartar("default-avatar");
+            user.setBackup_code(Helper.RandomString(8));
+            Date now = new Date(System.currentTimeMillis());
+            user.setDate_created(now);
+            String pass = "";
+            System.out.println("username :" + user.getUsername());
+            System.out.println("password :" + user.getPassword());
+            String string = new String(user.getPassword());
+            for (var x : string.split("")) {
+                pass += x;
+                System.out.println(x);
+            }
+            // System.out.println(Helper.Hash(pass));
+            user.setPassword(Helper.Hash(pass));
+            userService.saveUser(user);
+            System.out.println("password :" + user.getPassword());
+            redirAttrs.addFlashAttribute("success", "Đăng kí thành công, hãy tiến hành đăng nhập");
+            return "redirect:/resigter";
         }
-        System.out.println(Helper.Hash(pass));
-        user.setPassword(Helper.Hash(pass));
-        userService.saveUser(user);
-        System.out.println("password :"+user.getPassword());
-        return "redirect:/login";
+
     }
+
     @RequestMapping("/login")
     String login(Model model) {
         return "loginPage";
     }
     // @PostMapping (value = "/login")
     // String login(@ModelAttribute Users user) throws IOException{
-    //     System.out.println("username: "+user.getUsername());
-    //     System.out.println("pass: "+user.getPassword());
-    //     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    //     if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-    //         return "loginPage";
-    //     }
-    //     return "redirect:/";
-        
+    // System.out.println("username: "+user.getUsername());
+    // System.out.println("pass: "+user.getPassword());
+    // Authentication authentication =
+    // SecurityContextHolder.getContext().getAuthentication();
+    // if (authentication == null || authentication instanceof
+    // AnonymousAuthenticationToken) {
+    // return "loginPage";
     // }
-    @ResponseBody
+    // return "redirect:/";
+
+    // }
+    // @ResponseBody
     @RequestMapping("/LogSuccess")
-    public Object LogSuccess(RedirectAttributes redirAttrs) {
-        redirAttrs.addFlashAttribute("error", "The error XYZ occurred.");
-        return new ReturnJsonObject(true, "Đăng nhập thành công, bạn sẽ quay về trang chủ", "/");
+    public String LogSuccess() {
+        return "redirect:/";
     }
 
     @ResponseBody
@@ -95,19 +105,19 @@ public class AccountController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "loginPage";
         }
-        model.addAttribute("info",userService.GetCurrentUser());
+        model.addAttribute("info", userService.GetCurrentUser());
         return "SettingPage";
     }
 
     @RequestMapping("/password")
     String Security(Model model) {
-        model.addAttribute("something","");
+        model.addAttribute("something", "");
         return "SecurityPage";
     }
 
     @PostMapping("/changepassword")
-    String ChangePassword(@ModelAttribute("password")  ChangePassword password , Model model){
-        model.addAttribute("something",userService.ChangePassword(password));
+    String ChangePassword(@ModelAttribute("password") ChangePassword password, Model model) {
+        model.addAttribute("something", userService.ChangePassword(password));
         System.out.println(password.getOldPass());
         System.out.println(password.getNewPass());
         return "SecurityPage";
