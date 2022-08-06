@@ -17,6 +17,5 @@ import com.example.PexChat.Model.Room;
 public interface MessengesRepo extends JpaRepository<Messenges,UUID>{
     @Query(value = "select r.* from (select m.room_id as id from messages m where m.user_id = :id group by m.room_id) as a inner join room r on a.id = r.room_id ", nativeQuery = true)
     public  List<Object[]> findByUserId(@Param("id") String userId);
-
     public List<Messenges> findByRoom(Room room);
 }
