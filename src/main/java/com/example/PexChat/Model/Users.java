@@ -7,6 +7,7 @@ import java.util.UUID;
 
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -30,7 +31,7 @@ public class Users implements Serializable {
     Date date_created;
     String avartar;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     List<Messenges> messages;
     
 

@@ -93,14 +93,13 @@ public class ChatController extends BaseController {
 
     @MessageMapping("/{roomId}/sendMessage")
     
-    public MessegesSideModel sendMessage(@DestinationVariable String roomId, @Payload MessegesSideModel message) {
-        System.out.println(message.getContent());
-        System.out.println(message.getRoom_id());
-        System.out.println(message.getUser_id());
-        messagingTemplate.convertAndSend("/topic/room/"+ roomId, message);
+    public Messenges sendMessage(@DestinationVariable String roomId,  MessegesSideModel message) {
+        
+        var msg = messengesService.addMessengesFromChat(message);
+        messagingTemplate.convertAndSend("/topic/room/"+ roomId, msg);
 
         
-        return message;
+        return msg;
     }
 
 }
