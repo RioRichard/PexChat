@@ -41,7 +41,7 @@ public class ChatController extends BaseController {
     private SimpMessageSendingOperations messagingTemplate;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, Room room) {
              
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {

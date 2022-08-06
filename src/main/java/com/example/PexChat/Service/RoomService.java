@@ -28,7 +28,7 @@ public class RoomService extends BaseService {
             Room room = new Room();
             room.setRoom_id(UUID.fromString(object[0].toString()));
             room.setRoom_name(object[1].toString());
-            room.setDate_created(Date.valueOf(object[2].toString()));
+            room.setDate_created(Date.valueOf(object[2].toString())); 
             list.add(room);
         }
         return list;
