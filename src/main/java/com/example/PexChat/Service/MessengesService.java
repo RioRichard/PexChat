@@ -4,14 +4,17 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.PexChat.Model.Messenges;
 import com.example.PexChat.Model.Room;
 import com.example.PexChat.Model.Users;
 import com.example.PexChat.SideModel.MessegesSideModel;
+import com.example.PexChat.Repo.MessengesRepo;
 
 @Service
 public class MessengesService extends BaseService {
@@ -48,5 +51,10 @@ public class MessengesService extends BaseService {
         this.addMesseges(messages);
         return messages;
     }
-
+    @Autowired
+    MessengesRepo messrepo;
+    public List<Messenges> getbyroom (Room room){
+        List <Messenges> mess = messrepo.findByRoom(room);
+        return mess;
+    }
 }
