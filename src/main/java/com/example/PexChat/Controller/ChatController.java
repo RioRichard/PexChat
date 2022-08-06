@@ -14,7 +14,9 @@ import com.example.PexChat.Model.Room;
 import com.example.PexChat.Service.MessengesService;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.Gson;
-
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,12 @@ public class ChatController extends BaseController {
     
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("listRoom", roomService.getRooms());
+        model.addAttribute("listRoom", roomService.getRooms());     
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "loginPage";
+        }
+        model.addAttribute("info", userService.GetCurrentUser());
         return "homepage";
     }
     
