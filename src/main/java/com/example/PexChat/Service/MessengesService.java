@@ -57,9 +57,8 @@ public class MessengesService extends BaseService {
         return messages;
     }
     
-    MessengesRepo messrepo;
     public List<Messenges> getbyroom (Room room){
-        List <Messenges> mess = messrepo.findByRoom(room);
+        List <Messenges> mess = messengesRepo.findByRoom(room);
         return mess;
     }
 }
