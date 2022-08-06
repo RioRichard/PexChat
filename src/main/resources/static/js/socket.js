@@ -1,18 +1,17 @@
 'use strict';
 
 
-
 var stompClient = null;
-var username = null;
+var form = document.querySelector('#form');
  
 
 function connect() {
-    username = "test";
+    
      
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
 
-    stompClient.connect({}, onConnected, onError);
+    stompClient.connect({},onConnected,onError);
 }
 
 // Connect to WebSocket Server.
@@ -20,38 +19,47 @@ connect();
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/publicChatRoom', onMessageReceived);
+    stompClient.subscribe('/topic/checkRoom', onMessageReceivedSubcribe);
+    console.log(stompClient);
 
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser",
+    stompClient.send("/chat/room",
         {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+        
     )
+    
 
     // connectingElement.classList.add('hidden');
 }
 
 
 function onError(error) {
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-    connectingElement.style.color = 'red';
+    console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
 }
 
 
 function sendMessage(event) {
+    var messageInput = document.querySelector("#typeText");
     var messageContent = messageInput.value.trim();
     if(messageContent && stompClient) {
         var chatMessage = {
-            sender: username,
-            content: messageInput.value,
-            type: 'CHAT'
+            room_id : "7d76b4d2-d17b-49f2-b374-58ca7308c73c",
+            content : messageContent,
+            user_id : "7d76b4d2-d17b-49f2-b374-58ca7308c73c",
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/chat/7d76b4d2-d17b-49f2-b374-58ca7308c73c/sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
 }
 
+function onMessageReceivedSubcribe(payload) {
+    
+    var message = JSON.parse(payload.body);
+    message.map(function(msg){
+        stompClient.subscribe('/topic/room/'+msg.room_id, onMessageReceived);
+    })
+}
 
 function onMessageReceived(payload) {
     // var message = JSON.parse(payload.body);
@@ -86,4 +94,4 @@ function onMessageReceived(payload) {
 }
  
  
-// messageForm.addEventListener('submit', sendMessage, true);
+form.addEventListener('submit', sendMessage, true);

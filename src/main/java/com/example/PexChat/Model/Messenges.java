@@ -18,6 +18,9 @@ import org.hibernate.annotations.Type;
 @Table(name = "Messages")
 public class Messenges implements Serializable {
 
+    public static final int MESSAGE = 1;
+    public static final int IMAGE = 2;
+    public static final int JOIN = 3;
     @Id
     @Type(type = "uuid-char")
     UUID message_id;
@@ -37,19 +40,19 @@ public class Messenges implements Serializable {
     int data_type;
     public Messenges() {
     }
-    public Messenges(UUID user_id, Users user, Room room, String content, Date date_created, int data_type) {
-        this.message_id = user_id;
+    public Messenges(UUID message_id, Users user, Room room, String content, Date date_created, int data_type) {
+        this.message_id = message_id;
         this.user = user;
         this.room = room;
         this.content = content;
         this.date_created = date_created;
         this.data_type = data_type;
     }
-    public UUID getUser_id() {
+    public UUID getMessage_id() {
         return message_id;
     }
-    public void setUser_id(UUID user_id) {
-        this.message_id = user_id;
+    public void setMessage_id(UUID message_id) {
+        this.message_id = message_id;
     }
     public Users getUser() {
         return user;

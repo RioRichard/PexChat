@@ -12,15 +12,22 @@
 .list-group{
 	display: block;
 	position: relative;
-	height: 540px;	
+	max-height: 535px;	
 	overflow-y: scroll;
 }
 
 .chat-scroll{
 	display: block;
 	position: relative;
-	height: 470px;	
+	max-height: 470px;	
 	overflow-y: scroll;
+}
+
+body{
+	display: block;
+	position: relative;
+	max-height: 125%;
+	width: auto;
 }
 
 .message_circle{
@@ -63,5 +70,21 @@
 .active{
 	background-color: black;
 	color: white;
+}
+
+@media only screen and (min-width: 1920px){
+	.list-group{
+		display: block;
+		position: relative;
+		height: 535px;	
+		overflow-y: scroll;
+	}
+	
+	.chat-scroll{
+		display: block;
+		position: relative;
+		height: 470px;	
+		overflow-y: scroll;
+	}
 }
 

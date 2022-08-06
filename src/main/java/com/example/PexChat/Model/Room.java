@@ -18,9 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table
 public class Room implements Serializable{
-    public static final int MESSAGE = 1;
-    public static final int IMAGE = 2;
-    public static final int JOIN = 3;
+    
 
     @Id
     @Type(type = "uuid-char")
@@ -37,6 +35,16 @@ public class Room implements Serializable{
     }
     
     
+    
+
+    public Room(UUID room_id, String room_name, Date date_created) {
+        this.room_id = room_id;
+        this.room_name = room_name;
+        this.date_created = date_created;
+    }
+
+
+
 
     public Room(UUID room_id, String room_name, Date date_created, List<Messenges> messages) {
         this.room_id = room_id;
@@ -73,6 +81,4 @@ public class Room implements Serializable{
     public void setMessages(List<Messenges> messages) {
         this.messages = messages;
     }
-    
-    
 }

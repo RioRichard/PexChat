@@ -34,5 +34,8 @@ public class MessengesService extends BaseService {
         return list;
     }
     
+    public void addMesseges(Messenges msgs) {
+        messengesRepo.save(msgs);
+    }
 
 }
