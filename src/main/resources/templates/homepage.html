@@ -51,7 +51,7 @@
     <div class="container-fluid justify-content-between">
       <div class="d-flex">
         <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#" style="margin: 0px;">
-          <img src="/src/main/resources/Image/logo.jfif" height="60" alt="MDB Logo" loading="lazy" />
+          <img src="/Image/logo.jfif" height="60" alt="MDB Logo" loading="lazy" />
         </a>
         <form class="input-group w-auto my-auto d-none d-sm-flex">
           <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search"
@@ -128,64 +128,21 @@
           </div>
 
         </div>
-        <div class="list-group list-group-light">
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0" aria-current="true">
-            <img src="/static/Image/avt2.jpg" alt="" class="border rounded-circle"
-              style="height: 48px;" width="48px">
-            <strong>Tuấn Khoa</strong>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
-            <img src="/static/Image/avt3.jpg" alt="" class="border rounded-circle"
-              style="height: 48px;" width="48px">
-            <strong>Thanh NgocHuu Phung</strong>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
-            <img src="/static/Image/avt3.jpg" alt="" class="border rounded-circle"
-              style="height: 48px;" width="48px">
-            <strong>Thanh NgocHuu Phung</strong>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
-            <img src="/static/Image/avt3.jpg" alt="" class="border rounded-circle"
-              style="height: 48px;" width="48px">
-            <strong>Thanh NgocHuu Phung</strong>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
-            <img src="/static/Image/avt3.jpg" alt="" class="border rounded-circle"
-              style="height: 48px;" width="48px">
-            <strong>Thanh NgocHuu Phung</strong>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
-            <img src="/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
-              width="48px">
-            <strong>Thanh NgocHuu Phung</strong>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
-            <img src="/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
-              width="48px">
-            <strong>Thanh NgocHuu Phung</strong>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
-            <img src="/src/main/resources/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
-              width="48px">
-            <strong>Thanh NgocHuu Phung</strong>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
-            <img src="/src/main/resources/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
-              width="48px">
-            <strong>Thanh NgocHuu Phung</strong>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action px-3 border-0">
-            <img src="/src/main/resources/Image/avt3.jpg" alt="" class="border rounded-circle" style="height: 48px;"
-              width="48px">
-            <strong>Thanh NgocHuu Phung</strong>
-          </a>
-        </div>
+        <ul class="list-group list-group-light" th:each="room : ${listRoom}">
+          <li>
+            <a href="#" class="list-group-item list-group-item-action px-3 border-0" aria-current="true">
+              <img src="/Image/avt2.jpg" alt="" class="border rounded-circle"
+                style="height: 48px;" width="48px">
+              <strong th:text="${room.room_name}"></strong>
+            </a>
+          </li>
+        </ul>
       </div>
 
       <div class="col-9">
         <section class="">
           <div class="sticky-top">
-            <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 38px;"
+            <img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 38px;"
               width="38px">
             <strong>Tuấn Khoa</strong>
             <hr>
@@ -194,7 +151,7 @@
 
             <!--tin nhắn của bạn bè-->
             <div class="d-flex justify-content-start">
-              <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
+              <img src="/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
                 style="height: 30px;" width="30px">
               <p class="bg-light p-3 message_circle" style="max-width: 533px;">
                 gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
@@ -224,7 +181,7 @@
             </div>
             <!--tin nhắn của mình-->
             <div class="d-flex justify-content-start">
-              <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
+              <img src="/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
                 style="height: 30px;" width="30px">
               <p class="bg-light p-3 message_circle" style="max-width: 533px;">
                 gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
@@ -254,7 +211,7 @@
             </div>
             <!--tin nhắn của mình-->
             <div class="d-flex justify-content-start">
-              <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
+              <img src="/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
                 style="height: 30px;" width="30px">
               <p class="bg-light p-3 message_circle" style="max-width: 533px;">
                 gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj

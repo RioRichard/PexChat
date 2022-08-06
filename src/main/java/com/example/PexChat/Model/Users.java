@@ -31,9 +31,7 @@ public class Users implements Serializable {
     String avartar;
 
     @OneToMany(mappedBy = "user")
-    
     List<Messenges> messages;
-    
     
 
     public Users(UUID user_id, String username, String backup_code, Date date_created, String avartar,
