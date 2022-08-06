@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.PexChat.Model.Room;
 
 @Service
 public class RoomService extends BaseService {
+
+    
     public Object getname() {
         return roomRepo.findById(UUID.fromString("7d76b4d2-d17b-49f2-b374-58ca7308c73c")).get();
 
@@ -31,10 +34,16 @@ public class RoomService extends BaseService {
         return list;
     }
 
-    public List<Room> getRooms() {
-        var user = super.getCurrentUser();
-        List<Object[]> res = messengesRepo.findByUserId(user.getUser_id().toString());
+    public List<Room> getRooms(String username) {
+        var user_id = userRepo.findByUsername(username);
+        
+        // List<Object[]> res = messengesRepo.findByUserId(user_id.getUser_id().toString());
+        List<Object[]> res = messengesRepo.findByUserId("7d76b4d2-d17b-49f2-b374-58ca7308c73c");
+
 
         return getRoomsFromQuery(res);
+    }
+    public void addRoom(Room room){
+        roomRepo.save(room);
     }
 }

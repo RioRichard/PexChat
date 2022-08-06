@@ -19,8 +19,10 @@ public abstract class BaseService {
     @Autowired
     protected MessengesRepo messengesRepo;
 
-    public Users getCurrentUser() {
+    
+    public Users getCurrentUser(){
         var userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepo.findByUsername(userName); 
+        var user = userRepo.findByUsername(userName);     
+        return user;
     }
 }

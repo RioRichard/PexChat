@@ -26,8 +26,11 @@ public class UserService extends BaseService {
         userRepo.save(user);
     }
 
-    public Users GetUser(String id){
-        return userRepo.findById(UUID.fromString(id)).get();
+    public Users GetUser(UUID id){
+        return userRepo.findById(id).get();
+    }
+    public Users GetUser(String username){
+        return userRepo.findByUsername(username);
     }
 
     public Users GetCurrentUser(){
@@ -37,7 +40,7 @@ public class UserService extends BaseService {
     }
 
     public String ChangePassword(ChangePassword changepassword){
-        var user = super.getCurrentUser();
+        var user = this.GetCurrentUser();
         var check = Arrays.equals(user.getPassword(), Helper.Hash(changepassword.getOldPass()));
         if(check){
             user.setPassword(Helper.Hash(changepassword.getNewPass()));

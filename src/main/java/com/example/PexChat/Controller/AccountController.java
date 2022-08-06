@@ -47,6 +47,7 @@ public class AccountController {
         String pass = "";
         System.out.println("username :"+user.getUsername());
         for (var x : user.getPassword()) {
+            System.out.println(x);
             pass+=x;
         }
         user.setPassword(Helper.Hash(pass));
