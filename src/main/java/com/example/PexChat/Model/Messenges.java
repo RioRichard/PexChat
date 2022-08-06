@@ -36,7 +36,7 @@ public class Messenges implements Serializable {
     Room room;
 
     String content;
-    Date date_created;
+    Date date_send;
     int data_type;
     public Messenges() {
     }
@@ -45,7 +45,7 @@ public class Messenges implements Serializable {
         this.user = user;
         this.room = room;
         this.content = content;
-        this.date_created = date_created;
+        this.date_send = date_created;
         this.data_type = data_type;
     }
     public UUID getMessage_id() {
@@ -73,10 +73,10 @@ public class Messenges implements Serializable {
         this.content = content;
     }
     public Date getDate_created() {
-        return date_created;
+        return date_send;
     }
     public void setDate_created(Date date_created) {
-        this.date_created = date_created;
+        this.date_send = date_created;
     }
     public int getData_type() {
         return data_type;

@@ -18,11 +18,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.PexChat.Model.Messenges;
 import com.example.PexChat.Model.Room;
 import com.example.PexChat.Model.Users;
+import com.example.PexChat.Repo.RoomRepo;
 import com.example.PexChat.Service.MessengesService;
 import com.example.PexChat.SideModel.MessegesSideModel;
 import com.google.gson.Gson;
@@ -46,8 +49,9 @@ public class ChatController extends BaseController {
         }
         var user = userService.GetCurrentUser();
         model.addAttribute("info", user);
+        System.out.println("username: "+ user.getUsername());
         model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
-
+        
         return "homepage";
     }
 
@@ -65,11 +69,8 @@ public class ChatController extends BaseController {
 
     public List<Room> rooms(Principal principal) {
         System.out.println(1);
-        return roomService.getRooms("principal.getName()");
+        return roomService.getRooms(principal.getName());
     }
-
-    
-
     @MessageMapping("/chat/createRoom/{user_id}")
     @SendTo("/topic/room")
     public void userJoinRoom(@DestinationVariable UUID user_id, Principal principal) {
@@ -102,5 +103,14 @@ public class ChatController extends BaseController {
         
         return message;
     }
-
+    @Autowired
+    RoomRepo roomRepo;
+    @GetMapping("/{roomId}")
+    String showMess(@PathVariable (value= "roomId") UUID roomId, Model model){
+        var user = userService.GetCurrentUser();
+        model.addAttribute("messages", messengesService.getbyroom(roomRepo.getById(roomId)));
+        model.addAttribute("info", user);
+        model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
+        return "homepage";
+    }
 }

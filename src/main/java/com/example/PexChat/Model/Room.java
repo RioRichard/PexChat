@@ -26,7 +26,6 @@ public class Room implements Serializable{
     
     String room_name;
     Date date_created;
-
     @JsonIgnore
     @OneToMany(mappedBy = "room")
     List<Messenges> messages = new ArrayList<>();
