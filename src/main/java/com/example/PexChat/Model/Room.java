@@ -73,6 +73,4 @@ public class Room implements Serializable{
     public void setMessages(List<Messenges> messages) {
         this.messages = messages;
     }
-    
-    
 }
