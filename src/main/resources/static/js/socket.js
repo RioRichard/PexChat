@@ -3,15 +3,18 @@
 
 var stompClient = null;
 var form = document.querySelector('#form');
- 
+const MESSAGE = 1;
+const IMAGE = 2;
+const JOIN = 3;
+
 
 function connect() {
-    
-     
+
+
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
 
-    stompClient.connect({},onConnected,onError);
+    stompClient.connect({}, onConnected, onError);
 }
 
 // Connect to WebSocket Server.
@@ -25,9 +28,9 @@ function onConnected() {
     // Tell your username to the server
     stompClient.send("/chat/room",
         {},
-        
+
     )
-    
+
 
     // connectingElement.classList.add('hidden');
 }
@@ -41,11 +44,12 @@ function onError(error) {
 function sendMessage(event) {
     var messageInput = document.querySelector("#typeText");
     var messageContent = messageInput.value.trim();
-    if(messageContent && stompClient) {
+    if (messageContent && stompClient) {
         var chatMessage = {
-            room_id : "7d76b4d2-d17b-49f2-b374-58ca7308c73c",
-            content : messageContent,
-            user_id : "7d76b4d2-d17b-49f2-b374-58ca7308c73c",
+            room_id: "7d76b4d2-d17b-49f2-b374-58ca7308c73c",
+            content: messageContent,
+            user_id: "7d76b4d2-d17b-49f2-b374-58ca7308c73c",
+            msg_type: MESSAGE
         };
         stompClient.send("/chat/7d76b4d2-d17b-49f2-b374-58ca7308c73c/sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
@@ -54,15 +58,15 @@ function sendMessage(event) {
 }
 
 function onMessageReceivedSubcribe(payload) {
-    
+
     var message = JSON.parse(payload.body);
-    message.map(function(msg){
-        stompClient.subscribe('/topic/room/'+msg.room_id, onMessageReceived);
+    message.map(function (msg) {
+        stompClient.subscribe('/topic/room/' + msg.room_id, onMessageReceived);
     })
 }
 
 function onMessageReceived(payload) {
-    // var message = JSON.parse(payload.body);
+    var message = JSON.parse(payload.body);
 
     // var messageElement = document.createElement('li');
 
@@ -90,8 +94,30 @@ function onMessageReceived(payload) {
 
     // messageArea.appendChild(messageElement);
     // messageArea.scrollTop = messageArea.scrollHeight;
-    console.log(payload);
+    var content = '<div class="d-flex justify-content-start">'
+        content += '<img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">' 
+
+        content +='<p class="bg-light p-3 message_circle" style="max-width: 533px;">' 
+        content += message.content 
+        content += '<small class="float-end">14:52</small>' 
+        content += '</p>' 
+        content += '</div>'
+       
+        // Load the script
+        var script = document.createElement("SCRIPT");
+        script.src = 'https://code.jquery.com/jquery-3.2.1.slim.min.js';
+        script.type = 'text/javascript';
+        document.getElementsByTagName("head")[0].appendChild(script);
+    var path = $('#chat-scroll').append(content);
+    path.scrollTop(path.prop("scrollHeight"));
+    console.log(path);
+    console.log(content);
+
+    
+
+
+    console.log(content);
 }
- 
- 
+
+
 form.addEventListener('submit', sendMessage, true);
