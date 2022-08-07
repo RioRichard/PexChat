@@ -21,6 +21,10 @@ public class Messenges implements Serializable {
     public static final int MESSAGE = 1;
     public static final int IMAGE = 2;
     public static final int JOIN = 3;
+    public static final int JOINED = 4;
+    public static final int INVITE = 5;
+
+
     @Id
     @Type(type = "uuid-char")
     UUID message_id;

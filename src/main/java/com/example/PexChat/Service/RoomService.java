@@ -13,6 +13,9 @@ import com.example.PexChat.Model.Room;
 @Service
 public class RoomService extends BaseService {
 
+    public Object test() {
+        return roomRepo.findSameRoomOf2User("26cf5c8c-34e4-40ab-ad8d-2193d1944b40", "c78add34-a17e-4c8c-99ea-cf8137fe25df");
+    }
     
     public Object getname() {
         return roomRepo.findById(UUID.fromString("7d76b4d2-d17b-49f2-b374-58ca7308c73c")).get();
@@ -46,6 +49,12 @@ public class RoomService extends BaseService {
     
     public void addRoom(Room room){
         roomRepo.save(room);
+    }
+    public String getSameRoom(String userId1,String userId2) {
+        return roomRepo.findSameRoomOf2User(userId1, userId2);
+    }
+    public Room getRoom(UUID room_id) {
+        return roomRepo.findById(room_id).get();
     }
     
 }

@@ -41,7 +41,7 @@ public class MessengesService extends BaseService {
     }
     
     public void addMesseges(Messenges msgs) {
-        messengesRepo.save(msgs);
+        messengesRepo.saveAndFlush(msgs);
     }
     public Messenges addMessengesFromChat(MessegesSideModel msgs)  {
         var room = new Room();
@@ -50,7 +50,8 @@ public class MessengesService extends BaseService {
         user.setUser_id(UUID.fromString(msgs.getUser_id()));
         var messages = new Messenges(UUID.randomUUID(), user, room, msgs.getContent(), new Date(System.currentTimeMillis()), msgs.getMsg_type());
         this.addMesseges(messages);
-        return messages;
+        var result = messengesRepo.findById(messages.getMessage_id()).get();
+        return result;
     }
 
     public List<Messenges> getbyroom (Room room){

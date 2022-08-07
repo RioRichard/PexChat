@@ -6,14 +6,25 @@ var form = document.querySelector('#form');
 const MESSAGE = 1;
 const IMAGE = 2;
 const JOIN = 3;
+const JOINED = 4;
+const INVITE = 5;
+
 var client = null;
+
+
 
 
 
 
 function connect() {
     var messageArea = document.getElementById('chat-scroll')
-    messageArea.scrollTop = messageArea.scrollHeight;
+    if (messageArea != null) {
+        messageArea.scrollTop = messageArea.scrollHeight;
+    }
+    if (form != null) {
+        form.addEventListener('submit', sendMessage, true);
+
+    }
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
 
@@ -45,24 +56,23 @@ function onConnected() {
 }
 function onMessageReceivedNewRoom(payload) {
     var message = JSON.parse(payload.body);
-    stompClient.subscribe('/topic/room/' + message.room_id, onMessageReceived);
-    var roomList = $('#room_list')
-    var content = '';
-    content += '<div idRoom= "'+message.room_id+'">'
-    content += '<a href=/'+message.room_id+' class="list-group-item list-group-item-action px-3 border-0" aria-current="true">'
-    content += '<img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 48px;" width="48px">'
-    content += '<strong>'+message.room_name+'</strong>'
+    if (message.messengesType == JOINED || message.messengesType == INVITE) {
+        window.location.href = "/" + message.room.room_id
+    } else {
+        stompClient.subscribe('/topic/room/' + message.room.room_id, onMessageReceived);
+        var roomList = $('#room_list')
+        var content = '';
+        content += '<div idRoom= "' + message.room.room_id + '">'
+        content += '<a href=/' + message.room.room_id + ' class="list-group-item list-group-item-action px-3 border-0" aria-current="true">'
+        content += '<img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 48px;" width="48px">'
+        content += '<strong>' + message.room.room_name + '</strong>'
+        content += '</a>'
+        content += '</div>'
+        console.log(content);
+        roomList.prepend(content)
+    }
 
-    content += '</a>'
-    
 
-    
-
-    
-    content += '</div>'
-    console.log(content);
-    roomList.prepend(content)
-    
 
 }
 
@@ -87,13 +97,13 @@ function sendMessage(event) {
             user_id: userId,
             msg_type: MESSAGE
         };
-        // var path = "/chat/" + room_id + "/sendMessage";
+        var path = "/chat/" + room_id + "/sendMessage";
+
+
+
+        stompClient.send(path, {}, JSON.stringify(chatMessage));
         // // var path = "/chat/createRoom/07e51d0e-f2da-4b5b-b98a-dac11969616c";
-
-
-        // stompClient.send(path, {}, JSON.stringify(chatMessage));
-        var path = "/chat/createRoom/07e51d0e-f2da-4b5b-b98a-dac11969616c";
-        stompClient.send(path, {},);
+        // stompClient.send(path, {},);
         messageInput.value = '';
     }
     event.preventDefault();
@@ -150,22 +160,27 @@ function onMessageReceived(payload) {
     document.getElementsByTagName("head")[0].appendChild(script);
     var userId = document.getElementById('userId').getAttribute('userId')
 
-    var content = '';
+    var content = '<div>';
 
-    if (message.user_id != userId) {
+    if (message.user.user_id != userId) {
+        content += '<div class="d-flex justify-content-start">'
+        content += '<img src="/Image/' + message.user.avartar + '" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">'
+        content += '<p class="bg-light p-3 message_circle" style="max-width: 533px;">'
+
+
+    } else {
+
         content += '<div class="d-flex justify-content-end" style="margin-right: 50px;">'
         content += '<p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">'
-    } else {
-        content = '<div class="d-flex justify-content-start">'
-        content += '<img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">'
 
-        content += '<p class="bg-light p-3 message_circle" style="max-width: 533px;">'
     }
 
     content += message.content
 
     content += '</p>'
     content += '</div>'
+    content += '</div>'
+
 
     // Load the script
 
@@ -180,5 +195,7 @@ function onMessageReceived(payload) {
     console.log(content);
 }
 
+$('#newUser').click(function (e) {
+    console.log("hello");
 
-form.addEventListener('submit', sendMessage, true);
+});

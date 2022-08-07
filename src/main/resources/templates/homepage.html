@@ -131,7 +131,7 @@
             <div class="chat-scroll" id="chat-scroll">
               <div th:each="mess : ${messages}">
                 <!--tin nhắn của bạn bè-->
-                <div th:if="${mess.user.user_id == info.user_id && mess.data_type != 3}" class="d-flex justify-content-start">
+                <div th:if="${mess.user.user_id != info.user_id && mess.data_type != 3}" class="d-flex justify-content-start">
                   <img src="/Image/logo.jfif" alt="" class="border rounded-circle me-2" style="height: 30px;"
                     width="30px">
                   <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
@@ -139,7 +139,7 @@
                   </p>
                 </div>
                 <!--tin nhắn của bạn bè-->
-                <div th:if="${mess.user.user_id !=info.user_id && mess.data_type != 3}" class="d-flex justify-content-end"
+                <div th:if="${mess.user.user_id ==info.user_id && mess.data_type != 3}" class="d-flex justify-content-end"
                   style="margin-right: 50px;">
                   <p th:text="${mess.content}" class="bg-primary text-white p-3 message_circle"
                     style="max-width: 533px;">
@@ -202,10 +202,10 @@
           (result, status) => {
 
             if (status == "success") {
-              var data = "<div class=" + "'list-group-item list-group-item-action px-3'" + ">" + "<img class=" + "'avt-img'" + "src=" + "/Image/" + result.avartar + " />" + " " + result.username + "</div>";
+              var data = "<div id ='newUser'  onclick='createRoom(\""+result.user_id+"\")' newUserId = "+result.user_id+" class=" + "'list-group-item list-group-item-action px-3'" + ">" + "<img class=" + "'avt-img'" + "src=" + "/Image/" + result.avartar + " />" + " " + result.username + "</div>";
               searchResult.empty();
               searchResult.append(data);
-              searchResult.append(img);
+              
               console.log(status);
             }
             else {
