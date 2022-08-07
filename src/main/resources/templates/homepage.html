@@ -10,6 +10,12 @@
   <link rel="stylesheet" type="text/css" href="/CSS/styles.css">
   <!-- JavaScript Bundle with Popper -->
   <title>PexChat</title>
+  <style>
+    .avt-img{
+      border-radius: 50%;
+      height: 30px;
+    }
+  </style>
 </head>
 
 <body>
@@ -230,9 +236,10 @@
           {keyword: searchValue},
           (result) => {
             
-            var data="<div class=" + "'list-group-item list-group-item-action px-3'" +">" +result.username+"</div>";
-              
+            var data="<div class=" + "'list-group-item list-group-item-action px-3'" +">"+"<img class="+"'avt-img'"+ "src="+"/Image/"+result.avartar+ " />"+" " +result.username+"</div>";
+            var img=
             searchResult.append(data);
+            searchResult.append(img);
             console.log(data);
           }
         )
