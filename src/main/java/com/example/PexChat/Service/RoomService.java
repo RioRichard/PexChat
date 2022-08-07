@@ -43,7 +43,9 @@ public class RoomService extends BaseService {
 
         return getRoomsFromQuery(res);
     }
+    
     public void addRoom(Room room){
         roomRepo.save(room);
     }
+    
 }

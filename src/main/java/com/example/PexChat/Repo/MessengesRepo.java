@@ -20,5 +20,7 @@ public interface MessengesRepo extends JpaRepository<Messenges,UUID>{
     @Query(value = "select r.* from (select m.room_id as id from messages m where m.user_id = :id group by m.room_id) as a inner join room r on a.id = r.room_id ", nativeQuery = true)
     public  List<Object[]> findByUserId(@Param("id") String userId);
 
-    public List <Messenges> findByRoom(Room room);
+    public List <Messenges> findByRoom(Room room); 
+    @Query(value = "select m.user_id from Messages m where m.room_id = :id group by user_id", nativeQuery = true)
+    public  List<String> findUserIdGroupByRoomId(@Param("id") String roomId);
 }
