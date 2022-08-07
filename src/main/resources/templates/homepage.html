@@ -11,7 +11,7 @@
   <!-- JavaScript Bundle with Popper -->
   <title>PexChat</title>
   <style>
-    .avt-img{
+    .avt-img {
       border-radius: 50%;
       height: 30px;
     }
@@ -50,107 +50,62 @@
             </div>
         </div>
     </nav> -->
-  <!-- Nav sau khi đăng nhập -->
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid justify-content-between">
-      <div class="d-flex">
-        <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="/" style="margin: 0px;">
-          <img src="/Image/logo.jfif" height="60" alt="MDB Logo" loading="lazy" />
-        </a>
-        <form class="input-group w-auto my-auto d-none d-sm-flex">
-          <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search"
-            style="min-width: 125px;" />
-          <span class="input-group-text border-0 d-none d-lg-flex"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-              height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-              <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-            </svg></span>
-        </form>
-      </div>
-
-      <!-- Center elements -->
-
-      <!-- Right elements -->
-      <ul class="navbar-nav flex-row">
-        <li class="nav-item me-3 me-lg-1">
-          <a class="nav-link d-sm-flex align-items-sm-center" href="/accounts">
-            <img th:src="@{'/Image/' + ${info.avartar}}" class="rounded-circle" height="22" alt="" loading="lazy" />
-            <strong class="d-none d-sm-block ms-1" th:text="${info.username}" id="userId"
-              th:attr="userId=${info.getUser_id()}">Khôi Phạm</strong>
-
-          </a>
-        </li>
-        <a class="nav-link d-sm-flex align-items-sm-center" href="\Logout">
-          <strong class="d-none d-sm-block ms-1">Đăng xuất</strong>
-        </a>
-      </ul>
-      <!-- Right elements -->
-    </div>
-  </nav>
   <div class="mt-4">
     <div class="row" style="margin-top: 5px;">
       <div class="col-3 ">
-        <div class="d-flex justify-content-between">
-          <p class="ms-3 mt-2"><strong>Chat</strong></p>
-          <!-- Modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            data-bs-whatever="@mdo">Thêm bạn</button>
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Thêm bạn</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Nhập username cần tìm:</label>
-                      <input type="text" class="form-control" id="searchValue">
-                    </div>
-                    <div class="search-result">
+        <div class="d-flex justify-content-between" style="position: relative; bottom: 20px;">
+          <p class="ms-3 mt-2" style="position: relative; left: 160px;"><img src="/Image/logo.jfif"
+              style="height: 55px;"><strong>Chat</strong></p>
+          <a class="btn" data-bs-toggle="dropdown">
+            <img th:src="@{'/Image/' + ${info.avartar}}" class="rounded-circle" height="40"
+              style="position: relative; top: 10px; left: 135px;" />
+            <strong class="d-none d-sm-block ms-1" id="userId" th:attr="userId=${info.getUser_id()}"></strong>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/accounts">Cài đặt</a></li>
+            <li><a class="dropdown-item" href="\Logout">Đăng Xuất</a></li>
+          </ul>
+          <div style="position: relative; top: 18px;">
+            <!-- Modal -->
+            <button type="button" class="btn btn-link btn-sm p-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              data-bs-whatever="@mdo"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+              </svg></button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm bạn</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Nhập username cần tìm:</label>
+                        <input type="text" class="form-control" id="searchValue">
+                      </div>
+                      <div class="search-result">
 
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn search btn-primary">Tìm</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn search btn-primary">Tìm</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div>
-            <button type="button" class="btn btn-link btn-sm p-2" data-mdb-ripple-color="dark"><svg
-                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill"
-                viewBox="0 0 16 16">
-                <path
-                  d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
-              </svg></button>
-            <button type="button" class="btn btn-link btn-sm p-2" data-mdb-ripple-color="dark"><svg
-                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-camera-video-fill" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
-              </svg></button>
-            <button type="button" class="btn btn-link btn-sm p-2" data-mdb-ripple-color="dark"><svg
-                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-pencil-square" viewBox="0 0 16 16">
-                <path
-                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                <path fill-rule="evenodd"
-                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-              </svg></button>
-          </div>
-
         </div>
         <div class="list-group list-group-light" style="height: 1000px;">
           <div class="" th:each="room : ${listRoom}">
             <a th:href="@{/{roomId}(roomId = ${room.room_id})}"
               class="list-group-item list-group-item-action px-3 border-0" aria-current="true">
-              <img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 48px;" width="48px">
+              <img src="/Image/logo.jfif" alt="" class="border rounded-circle" style="height: 48px;" width="48px">
               <strong th:text="${room.room_name}"></strong>
             </a>
           </div>
@@ -158,57 +113,67 @@
       </div>
 
       <div class="col-9">
-        <section class="">
-          <div class="sticky-top">
-            <img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 38px;" width="38px">
-            <strong>Tuấn Khoa</strong>
-            <hr>
-          </div>
-          <div class="chat-scroll" id="chat-scroll">
-            <div th:each="mess : ${messages}">
-              <!--tin nhắn của bạn bè-->
-              <div th:if="${mess.user.user_id ==info.user_id}" class="d-flex justify-content-start">
-                <img src="/Image/avt2.jpg" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">
-                <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
-                  <!-- <small class="float-end">14:52</small> -->
-                </p>
+        <div th:if="${messages == null}">
+          <h1 style="position: relative; top: 100px; left: 450px;">Chào Bạn Mừng Đến Với Pex</h1>
+          <h3 style="position: relative; top: 100px; left: 528px;">Chúc Bạn Có Một Ngày Vui Vẻ</h3>
+        </div>
+        <div th:if="${messages != null}">
+          <section class="">
+            <div class="sticky-top">
+              <div class="" th:each="room : ${listRoom}">
+                <div th:if="${room.room_id == roomId}">
+                  <img src="/Image/logo.jfif" alt="" class="border rounded-circle" style="height: 38px;" width="38px">
+                  <strong th:text="${room.room_name}"></strong>
+                </div>
               </div>
-              <!--tin nhắn của bạn bè-->
-              <div th:if="${mess.user.user_id !=info.user_id}" class="d-flex justify-content-end"
-                style="margin-right: 50px;">
-                <p th:text="${mess.content}" class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
-                  <!-- <small class="float-end">14:52</small> -->
-                </p>
-              </div>
-              <!--tin nhắn của mình-->
+              <hr>
             </div>
-        </section>
-        <!--Khung Chat-->
-
-        <!--Thanh để nhắn tin-->
-        <section class="section__headline">
-          <form id="form" class="d-flex">
-            <button type="button" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                <path
-                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-              </svg></button>
-
-            <div class="w-100 mx-2">
-              <div class="form-outline">
-                <input type="text" id="typeText" class="form-control" />
+            <div class="chat-scroll" id="chat-scroll">
+              <div th:each="mess : ${messages}">
+                <!--tin nhắn của bạn bè-->
+                <div th:if="${mess.user.user_id == info.user_id}" class="d-flex justify-content-start">
+                  <img src="/Image/logo.jfif" alt="" class="border rounded-circle me-2" style="height: 30px;"
+                    width="30px">
+                  <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
+                    <!-- <small class="float-end">14:52</small> -->
+                  </p>
+                </div>
+                <!--tin nhắn của bạn bè-->
+                <div th:if="${mess.user.user_id !=info.user_id}" class="d-flex justify-content-end"
+                  style="margin-right: 50px;">
+                  <p th:text="${mess.content}" class="bg-primary text-white p-3 message_circle"
+                    style="max-width: 533px;">
+                    <!-- <small class="float-end">14:52</small> -->
+                  </p>
+                </div>
+                <!--tin nhắn của mình-->
               </div>
-            </div>
-            <button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-                <path
-                  d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
-              </svg></button>
-          </form>
-        </section>
+          </section>
+          <!--Khung Chat-->
+
+          <!--Thanh để nhắn tin-->
+          <section class="section__headline">
+            <form id="form" class="d-flex">
+              <button type="button" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                </svg></button>
+
+              <div class="w-100 mx-2">
+                <div class="form-outline">
+                  <input type="text" id="typeText" class="form-control" />
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+                </svg></button>
+            </form>
+          </section>
+        </div>
       </div>
-
-      <!--Thanh để nhắn tin-->
     </div>
     <!--Khung Chat-->
   </div>
@@ -230,17 +195,21 @@
       $(".search").click(function () {
         var searchValue = $("#searchValue").val();
         var searchResult = $(".search-result");
-        console.log(searchValue);
         $.post(
           "/search",
-          {keyword: searchValue},
-          (result) => {
-            
-            var data="<div class=" + "'list-group-item list-group-item-action px-3'" +">"+"<img class="+"'avt-img'"+ "src="+"/Image/"+result.avartar+ " />"+" " +result.username+"</div>";
-            var img=
-            searchResult.append(data);
-            searchResult.append(img);
-            console.log(data);
+          { keyword: searchValue },
+          (result, status) => {
+
+            if (status == "success") {
+              var data = "<div class=" + "'list-group-item list-group-item-action px-3'" + ">" + "<img class=" + "'avt-img'" + "src=" + "/Image/" + result.avartar + " />" + " " + result.username + "</div>";
+              searchResult.empty();
+              searchResult.append(data);
+              searchResult.append(img);
+              console.log(status);
+            }
+            else {
+              searchResult.append("<p> Không tìm thấy user </p>")
+            }
           }
         )
       });
