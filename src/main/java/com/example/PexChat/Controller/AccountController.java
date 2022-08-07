@@ -154,7 +154,7 @@ public class AccountController {
         } catch (Exception e) {
             throw new IOException("Upload thất bại");
         }
-        return "SettingPage";
+        return "SecurityPage";
 
     }
 }
