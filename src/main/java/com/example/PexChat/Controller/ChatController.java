@@ -49,27 +49,30 @@ public class ChatController extends BaseController {
         }
         var user = userService.GetCurrentUser();
         model.addAttribute("info", user);
-        System.out.println("username: "+ user.getUsername());
+        System.out.println("username: "+ user.getUser_id());
         model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
         
         return "homepage";
     }
 
-    // @ResponseBody
-    // @GetMapping("/test")
-    // public String name() {
+    @ResponseBody
+    @GetMapping("/test")
+    public String name() {
         
 
-    //     Gson gson = new Gson();
-    //     return gson.toJson(messengesService.test());
-    // }
+        Gson gson = new Gson();
+        return gson.toJson(messengesService.test(UUID.fromString("7d76b4d2-d17b-49f2-b374-58ca7308c73c")));
+    }
 
     @MessageMapping("/room")
     @SendTo("/topic/checkRoom")
 
-    public List<Room> rooms(Principal principal) {
+    public List<Room> rooms(Principal principal, SimpMessageHeaderAccessor headerAccessor) {
         System.out.println(1);
-        return roomService.getRooms(principal.getName());
+        var userName = principal.getName();
+        var userId = userService.GetUser(userName).getUser_id();
+        headerAccessor.getSessionAttributes().put("username", userId);
+        return roomService.getRooms(userName);
     }
     @MessageMapping("/chat/createRoom/{user_id}")
     @SendTo("/topic/room")
@@ -94,20 +97,31 @@ public class ChatController extends BaseController {
 
     @MessageMapping("/{roomId}/sendMessage")
     
-    public Messenges sendMessage(@DestinationVariable String roomId,  MessegesSideModel message) {
+    // public Messenges sendMessage(@DestinationVariable String roomId,  MessegesSideModel message) {
         
-        var msg = messengesService.addMessengesFromChat(message);
-        messagingTemplate.convertAndSend("/topic/room/"+ roomId, msg);
+    //     var msg = messengesService.addMessengesFromChat(message);
+    //     messagingTemplate.convertAndSend("/topic/room/"+ roomId, msg);
 
         
-        return msg;
+    //     return msg;
+    // }
+    public MessegesSideModel sendMessage(@DestinationVariable String roomId,  MessegesSideModel message) {
+        
+        
+        
+        messagingTemplate.convertAndSend("/topic/room/"+ roomId, message);
+        
+
+        
+        return message;
     }
-    @Autowired
-    RoomRepo roomRepo;
+    
     @GetMapping("/{roomId}")
     String showMess(@PathVariable (value= "roomId") UUID roomId, Model model){
         var user = userService.GetCurrentUser();
-        model.addAttribute("messages", messengesService.getbyroom(roomRepo.getById(roomId)));
+        Room room = new Room();
+        room.setRoom_id(roomId);
+        model.addAttribute("messages", messengesService.getbyroom(room));
         model.addAttribute("info", user);
         model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
         return "homepage";

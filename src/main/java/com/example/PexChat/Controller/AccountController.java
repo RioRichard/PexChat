@@ -24,11 +24,21 @@ import com.example.PexChat.Model.Users;
 import com.example.PexChat.Service.UserService;
 import com.example.PexChat.SideModel.ChangePassword;
 import com.example.PexChat.SideModel.ReturnJsonObject;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import lombok.var;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
+
 public class AccountController {
+    private long copy;
     @RequestMapping("/resigter")
     String register(Model model) {
         model.addAttribute("something", "some thing from controller");
@@ -121,5 +131,30 @@ public class AccountController {
         System.out.println(password.getOldPass());
         System.out.println(password.getNewPass());
         return "SecurityPage";
+    }
+    
+    @PostMapping("/uploadavata")
+    String UploadAvata( @RequestParam("avartar") MultipartFile MultiPartFile) throws  IOException{
+        String fileName=StringUtils.cleanPath(MultiPartFile.getOriginalFilename());
+        var user = userService.GetCurrentUser();
+        user.setAvartar(fileName);
+        userService.saveUser(user);
+        String uploadDir="./src/main/resources/static/Image/";
+
+        Path uploadPath=Paths.get(uploadDir);
+
+        if(!Files.exists(uploadPath))
+        {
+            Files.createDirectories(uploadPath);
+        }
+        try {
+            InputStream inputStream=MultiPartFile.getInputStream();
+        Path filepPath=uploadPath.resolve(fileName);
+        copy = Files.copy(inputStream,filepPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            throw new IOException("Upload thất bại");
+        }
+        return "redirect:/accounts";
+
     }
 }
