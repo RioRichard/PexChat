@@ -57,5 +57,12 @@ public class MessengesService extends BaseService {
         List <Messenges> mess = messengesRepo.findByRoom(room);
         return mess;
     }
-    
+    public Users listAll(String keyword) {
+        if (keyword != null) {
+            return userRepo.findByUsername(keyword);
+        }
+        else{
+            return null;
+        }
+    }
 }
