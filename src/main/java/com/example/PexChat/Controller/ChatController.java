@@ -136,7 +136,11 @@ public class ChatController extends BaseController {
     @PostMapping("/search")
     public Users viewHomePage(String keyword) {
         var user=userService.findByUser(keyword);
-        System.out.print(user.getUsername());
-        return user;
+        if(user!=null){
+            return user;
+        }
+        else{
+            return null;
+        }
     }
 }
