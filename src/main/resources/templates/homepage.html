@@ -71,7 +71,8 @@
         <li class="nav-item me-3 me-lg-1">
           <a class="nav-link d-sm-flex align-items-sm-center" href="/accounts">
             <img src="/Image/avt.jpg" class="rounded-circle" height="22" alt="" loading="lazy" />
-            <strong class="d-none d-sm-block ms-1" th:text="${info.username}">Khôi Phạm</strong>
+            <strong class="d-none d-sm-block ms-1" th:text="${info.username}" id="userId" th:attr="userId=${info.getUser_id()}">Khôi Phạm</strong>
+            
           </a>
         </li>
         <a class="nav-link d-sm-flex align-items-sm-center" href="\Logout">
@@ -129,98 +130,30 @@
             <strong>Tuấn Khoa</strong>
             <hr>
           </div>
-          <div class="chat-scroll">
-
-            <!--tin nhắn của bạn bè-->
-            <div class="d-flex justify-content-start">
-              <img src="/Image/avt2.jpg" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">
-              <p class="bg-light p-3 message_circle" style="max-width: 533px;">
-                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                44444444444444444444444444444444444444
-                44444444444444444444444444444444444444
-                4444444444444444444444444444444444444
-                <small class="float-end">14:52</small>
-              </p>
-            </div>
-            <!--tin nhắn của bạn bè-->
-
-            <!--tin nhắn của mình-->
-            <div class="d-flex justify-content-end" style="margin-right: 50px;">
-              <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
-                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                44444444444444444444444444444444444444
-                44444444444444444444444444444444444444
-                4444444444444444444444444444444444444
-                <small class="float-end">14:52</small>
-              </p>
-            </div>
-            <!--tin nhắn của mình-->
-            <div class="d-flex justify-content-start">
-              <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
-                style="height: 30px;" width="30px">
-              <p class="bg-light p-3 message_circle" style="max-width: 533px;">
-                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                44444444444444444444444444444444444444
-                44444444444444444444444444444444444444
-                4444444444444444444444444444444444444
-                <small class="float-end">14:52</small>
-              </p>
-            </div>
-            <!--tin nhắn của bạn bè-->
-
-            <!--tin nhắn của mình-->
-            <div class="d-flex justify-content-end" style="margin-right: 50px;">
-              <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
-                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                44444444444444444444444444444444444444
-                44444444444444444444444444444444444444
-                4444444444444444444444444444444444444
-                <small class="float-end">14:52</small>
-              </p>
-            </div>
-            <!--tin nhắn của mình-->
-            <div class="d-flex justify-content-start">
-              <img src="/src/main/resources/Image/avt2.jpg" alt="" class="border rounded-circle me-2"
-                style="height: 30px;" width="30px">
-              <p class="bg-light p-3 message_circle" style="max-width: 533px;">
-                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                44444444444444444444444444444444444444
-                44444444444444444444444444444444444444
-                4444444444444444444444444444444444444
-                <small class="float-end">14:52</small>
-              </p>
-            </div>
-            <!--tin nhắn của bạn bè-->
-
-            <!--tin nhắn của mình-->
-            <div class="d-flex justify-content-end" style="margin-right: 50px;">
-              <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
-                gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                44444444444444444444444444444444444444
-                44444444444444444444444444444444444444
-                4444444444444444444444444444444444444
-                <small class="float-end">14:52</small>
-              </p>
-            </div>
-            <!--tin nhắn của mình-->
+          <div class="chat-scroll" id="chat-scroll">
+            <div th:each="mess : ${messages}">
+              <!--tin nhắn của bạn bè-->
+              <div class="d-flex justify-content-start">
+                <img src="/Image/avt2.jpg" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">
+                <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
+                  <small class="float-end">14:52</small>
+                </p>
+              </div>
+              <!--tin nhắn của bạn bè-->
+              <div class="d-flex justify-content-end" style="margin-right: 50px;">
+                <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
+                  gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                  44444444444444444444444444444444444444
+                  44444444444444444444444444444444444444
+                  4444444444444444444444444444444444444
+                  <small class="float-end">14:52</small>
+                </p>
+              </div>
+              <!--tin nhắn của mình-->
+          </div>
         </section>
         <!--Khung Chat-->
 

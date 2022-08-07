@@ -12,14 +12,14 @@
 .list-group{
 	display: block;
 	position: relative;
-	max-height: 535px;	
+	max-height: 750px;	
 	overflow-y: scroll;
 }
 
 .chat-scroll{
 	display: block;
 	position: relative;
-	max-height: 470px;	
+	height: 690px;	
 	overflow-y: scroll;
 }
 
@@ -72,19 +72,5 @@ body{
 	color: white;
 }
 
-@media only screen and (min-width: 1920px){
-	.list-group{
-		display: block;
-		position: relative;
-		height: 535px;	
-		overflow-y: scroll;
-	}
-	
-	.chat-scroll{
-		display: block;
-		position: relative;
-		height: 470px;	
-		overflow-y: scroll;
-	}
-}
+
 

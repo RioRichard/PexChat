@@ -28,7 +28,7 @@ public class RoomService extends BaseService {
             Room room = new Room();
             room.setRoom_id(UUID.fromString(object[0].toString()));
             room.setRoom_name(object[1].toString());
-            room.setDate_created(Date.valueOf(object[2].toString()));
+            room.setDate_created(Date.valueOf(object[2].toString())); 
             list.add(room);
         }
         return list;
@@ -37,13 +37,15 @@ public class RoomService extends BaseService {
     public List<Room> getRooms(String username) {
         var user_id = userRepo.findByUsername(username);
         
-        // List<Object[]> res = messengesRepo.findByUserId(user_id.getUser_id().toString());
-        List<Object[]> res = messengesRepo.findByUserId("7d76b4d2-d17b-49f2-b374-58ca7308c73c");
+        List<Object[]> res = messengesRepo.findByUserId(user_id.getUser_id().toString());
+        // List<Object[]> res = messengesRepo.findByUserId("7d76b4d2-d17b-49f2-b374-58ca7308c73c");
 
 
         return getRoomsFromQuery(res);
     }
+    
     public void addRoom(Room room){
         roomRepo.save(room);
     }
+    
 }

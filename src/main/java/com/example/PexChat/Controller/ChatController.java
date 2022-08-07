@@ -18,11 +18,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.PexChat.Model.Messenges;
 import com.example.PexChat.Model.Room;
 import com.example.PexChat.Model.Users;
+import com.example.PexChat.Repo.RoomRepo;
 import com.example.PexChat.Service.MessengesService;
 import com.example.PexChat.SideModel.MessegesSideModel;
 import com.google.gson.Gson;
@@ -38,7 +41,7 @@ public class ChatController extends BaseController {
     private SimpMessageSendingOperations messagingTemplate;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, Room room) {
              
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
@@ -46,30 +49,31 @@ public class ChatController extends BaseController {
         }
         var user = userService.GetCurrentUser();
         model.addAttribute("info", user);
+        System.out.println("username: "+ user.getUser_id());
         model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
-
+        
         return "homepage";
     }
 
-    // @ResponseBody
-    // @GetMapping("/test")
-    // public String name() {
+    @ResponseBody
+    @GetMapping("/test")
+    public String name() {
         
 
-    //     Gson gson = new Gson();
-    //     return gson.toJson(messengesService.test());
-    // }
+        Gson gson = new Gson();
+        return gson.toJson(messengesService.test(UUID.fromString("7d76b4d2-d17b-49f2-b374-58ca7308c73c")));
+    }
 
     @MessageMapping("/room")
     @SendTo("/topic/checkRoom")
 
-    public List<Room> rooms(Principal principal) {
+    public List<Room> rooms(Principal principal, SimpMessageHeaderAccessor headerAccessor) {
         System.out.println(1);
-        return roomService.getRooms("principal.getName()");
+        var userName = principal.getName();
+        var userId = userService.GetUser(userName).getUser_id();
+        headerAccessor.getSessionAttributes().put("username", userId);
+        return roomService.getRooms(userName);
     }
-
-    
-
     @MessageMapping("/chat/createRoom/{user_id}")
     @SendTo("/topic/room")
     public void userJoinRoom(@DestinationVariable UUID user_id, Principal principal) {
@@ -93,14 +97,33 @@ public class ChatController extends BaseController {
 
     @MessageMapping("/{roomId}/sendMessage")
     
-    public MessegesSideModel sendMessage(@DestinationVariable String roomId, @Payload MessegesSideModel message) {
-        System.out.println(message.getContent());
-        System.out.println(message.getRoom_id());
-        System.out.println(message.getUser_id());
+    // public Messenges sendMessage(@DestinationVariable String roomId,  MessegesSideModel message) {
+        
+    //     var msg = messengesService.addMessengesFromChat(message);
+    //     messagingTemplate.convertAndSend("/topic/room/"+ roomId, msg);
+
+        
+    //     return msg;
+    // }
+    public MessegesSideModel sendMessage(@DestinationVariable String roomId,  MessegesSideModel message) {
+        
+        
+        
         messagingTemplate.convertAndSend("/topic/room/"+ roomId, message);
+        
 
         
         return message;
     }
-
+    
+    @GetMapping("/{roomId}")
+    String showMess(@PathVariable (value= "roomId") UUID roomId, Model model){
+        var user = userService.GetCurrentUser();
+        Room room = new Room();
+        room.setRoom_id(roomId);
+        model.addAttribute("messages", messengesService.getbyroom(room));
+        model.addAttribute("info", user);
+        model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
+        return "homepage";
+    }
 }

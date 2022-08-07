@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,9 +27,8 @@ public class Room implements Serializable{
     
     String room_name;
     Date date_created;
-
     @JsonIgnore
-    @OneToMany(mappedBy = "room")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "room")
     List<Messenges> messages = new ArrayList<>();
     
     public Room() {
