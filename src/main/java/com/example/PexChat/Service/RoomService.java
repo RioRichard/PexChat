@@ -43,7 +43,11 @@ public class RoomService extends BaseService {
 
         return getRoomsFromQuery(res);
     }
+    public List<Room> getRooms(UUID room_id) {
+        return roomRepo.findById(room_id)
+    }
     public void addRoom(Room room){
         roomRepo.save(room);
     }
+    
 }
