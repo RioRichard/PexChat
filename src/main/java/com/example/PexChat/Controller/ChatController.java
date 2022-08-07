@@ -51,6 +51,8 @@ public class ChatController extends BaseController {
         model.addAttribute("info", user);
         System.out.println("username: "+ user.getUser_id());
         model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
+        model.addAttribute("currentRoom", "");
+
         
         return "homepage";
     }
@@ -68,30 +70,34 @@ public class ChatController extends BaseController {
     @SendTo("/topic/checkRoom")
 
     public List<Room> rooms(Principal principal, SimpMessageHeaderAccessor headerAccessor) {
-        System.out.println(1);
+        
         var userName = principal.getName();
         var userId = userService.GetUser(userName).getUser_id();
         headerAccessor.getSessionAttributes().put("username", userId);
         return roomService.getRooms(userName);
     }
-    @MessageMapping("/chat/createRoom/{user_id}")
-    @SendTo("/topic/room")
+    @MessageMapping("/createRoom/{user_id}")
+    
     public void userJoinRoom(@DestinationVariable UUID user_id, Principal principal) {
-        // with enabled spring security
+        
         String username = principal.getName();
 
         var currentUser = userService.GetUser(username);
         var otherUser = userService.GetUser(user_id);
 
-        var newRoom = new Room(UUID.randomUUID(), currentUser.getUsername() + " " + otherUser.getUsername(),
+        var newRoom = new Room(UUID.randomUUID(), currentUser.getUsername() + " and " + otherUser.getUsername(),
                 new Date(System.currentTimeMillis()));
         Messenges joinMessage1 = new Messenges(UUID.randomUUID(), currentUser, newRoom, "" + Messenges.JOIN,
                 new Date(System.currentTimeMillis()), Messenges.JOIN);
         Messenges joinMessage2 = new Messenges(UUID.randomUUID(), otherUser, newRoom, "" + Messenges.JOIN,
                 new Date(System.currentTimeMillis()), Messenges.JOIN);
-        roomService.addRoom(newRoom);
-        messengesService.addMesseges(joinMessage2);
-        messengesService.addMesseges(joinMessage1);
+        // roomService.addRoom(newRoom);
+        // messengesService.addMesseges(joinMessage2);
+        // messengesService.addMesseges(joinMessage1);
+        messagingTemplate.convertAndSend("/topic/getNewRoom/"+ user_id, newRoom);
+        messagingTemplate.convertAndSend("/topic/getNewRoom/"+ currentUser.getUser_id().toString(), newRoom);
+
+        System.out.println("hello: " + user_id.toString());
 
     }
 
@@ -118,9 +124,14 @@ public class ChatController extends BaseController {
     
     @GetMapping("/{roomId}")
     String showMess(@PathVariable (value= "roomId") UUID roomId, Model model){
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        }
         var user = userService.GetCurrentUser();
         Room room = new Room();
         room.setRoom_id(roomId);
+        model.addAttribute("currentRoom", roomId);
         model.addAttribute("messages", messengesService.getbyroom(room));
         model.addAttribute("info", user);
         model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
