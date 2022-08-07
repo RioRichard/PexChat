@@ -12,8 +12,8 @@ var client = null;
 
 
 function connect() {
-
-
+    var messageArea = document.getElementById('chat-scroll')
+    messageArea.scrollTop = messageArea.scrollHeight;
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
 
