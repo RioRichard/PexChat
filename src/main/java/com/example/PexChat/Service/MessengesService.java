@@ -38,11 +38,6 @@ public class MessengesService extends BaseService {
         }
         return list;
     }
-
-    public List<Messenges> getMesseges(Room room){
-        List<Messenges> mess = messengesRepo.findByRoom(room);
-        return mess;
-    }
     
     public void addMesseges(Messenges msgs) {
         messengesRepo.save(msgs);
@@ -56,7 +51,7 @@ public class MessengesService extends BaseService {
         this.addMesseges(messages);
         return messages;
     }
-    
+
     public List<Messenges> getbyroom (Room room){
         List <Messenges> mess = messengesRepo.findByRoom(room);
         return mess;
