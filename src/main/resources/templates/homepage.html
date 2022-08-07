@@ -70,7 +70,7 @@
       <ul class="navbar-nav flex-row">
         <li class="nav-item me-3 me-lg-1">
           <a class="nav-link d-sm-flex align-items-sm-center" href="/accounts">
-            <img src="/Image/avt.jpg" class="rounded-circle" height="22" alt="" loading="lazy" />
+            <img th:src="@{'/Image/' + ${info.avartar}}" class="rounded-circle" height="22" alt="" loading="lazy" />
             <strong class="d-none d-sm-block ms-1" th:text="${info.username}" id="userId" th:attr="userId=${info.getUser_id()}">Khôi Phạm</strong>
             
           </a>
@@ -115,10 +115,10 @@
         </div>
         <div class="list-group list-group-light" style="height: 1000px;">
           <div class="" th:each="room : ${listRoom}">
-            <a href="#" class="list-group-item list-group-item-action px-3 border-0" aria-current="true">
-              <img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 48px;" width="48px">
-              <strong th:text="${room.room_name}"></strong>
-            </a>
+              <a th:href="@{/{roomId}(roomId = ${room.room_id})}" class="list-group-item list-group-item-action px-3 border-0" aria-current="true">
+                <img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 48px;" width="48px">
+                <strong th:text="${room.room_name}"></strong>
+              </a>
           </div>
         </div>
       </div>
@@ -127,7 +127,7 @@
         <section class="">
           <div class="sticky-top">
             <img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 38px;" width="38px">
-            <strong>Tuấn Khoa</strong>
+            <strong >Tuấn Khoa</strong>
             <hr>
           </div>
           <div class="chat-scroll" id="chat-scroll">
@@ -135,20 +135,15 @@
               <!--tin nhắn của bạn bè-->
               <div class="d-flex justify-content-start">
                 <img src="/Image/avt2.jpg" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">
-                <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
-                  <small class="float-end">14:52</small>
-                </p>
+                <div th:if="${mess.user.user_id}">
+                  <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
+                    <small class="float-end">14:52</small>
+                  </p>
+                </div>           
               </div>
               <!--tin nhắn của bạn bè-->
               <div class="d-flex justify-content-end" style="margin-right: 50px;">
-                <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
-                  gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  44444444444444444444444444444444444444
-                  44444444444444444444444444444444444444
-                  4444444444444444444444444444444444444
+                <p th:text="${mess.content}" class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
                   <small class="float-end">14:52</small>
                 </p>
               </div>
