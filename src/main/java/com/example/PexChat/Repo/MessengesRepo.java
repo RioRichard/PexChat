@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.PexChat.Model.Messenges;
 import com.example.PexChat.Model.Room;
-import com.example.PexChat.Model.Users;
 
 
 @Repository
