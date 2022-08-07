@@ -101,8 +101,8 @@
             </div>
           </div>
         </div>
-        <div class="list-group list-group-light" style="height: 1000px;">
-          <div class="" th:each="room : ${listRoom}">
+        <div class="list-group list-group-light" id="room_list" style="height: 1000px;">
+          <div class="" th:each="room : ${listRoom}" th:attr="roomId=${room.room_id}">
             <a th:href="@{/{roomId}(roomId = ${room.room_id})}"
               class="list-group-item list-group-item-action px-3 border-0" aria-current="true">
               <img src="/Image/logo.jfif" alt="" class="border rounded-circle" style="height: 48px;" width="48px">
@@ -131,7 +131,7 @@
             <div class="chat-scroll" id="chat-scroll">
               <div th:each="mess : ${messages}">
                 <!--tin nhắn của bạn bè-->
-                <div th:if="${mess.user.user_id == info.user_id}" class="d-flex justify-content-start">
+                <div th:if="${mess.user.user_id == info.user_id && mess.data_type != 3}" class="d-flex justify-content-start">
                   <img src="/Image/logo.jfif" alt="" class="border rounded-circle me-2" style="height: 30px;"
                     width="30px">
                   <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
@@ -139,7 +139,7 @@
                   </p>
                 </div>
                 <!--tin nhắn của bạn bè-->
-                <div th:if="${mess.user.user_id !=info.user_id}" class="d-flex justify-content-end"
+                <div th:if="${mess.user.user_id !=info.user_id && mess.data_type != 3}" class="d-flex justify-content-end"
                   style="margin-right: 50px;">
                   <p th:text="${mess.content}" class="bg-primary text-white p-3 message_circle"
                     style="max-width: 533px;">
@@ -163,7 +163,8 @@
               <div class="w-100 mx-2">
                 <div class="form-outline">
                   <input type="text" id="typeText" class="form-control" />
-                </div>
+                  <div style="display: none;" id="room_id" th:text="${currentRoom}"></div>
+              </div>
               </div>
               <button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                   height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">

@@ -26,8 +26,10 @@ connect();
 
 function onConnected() {
     // Subscribe to the Public Topic
+    var userId = document.getElementById('userId').getAttribute('userId')
 
     client = stompClient.subscribe('/topic/checkRoom', onMessageReceivedSubcribe);
+    stompClient.subscribe("/topic/getNewRoom/" + userId, onMessageReceivedNewRoom);
     console.log(stompClient);
 
     // Tell your username to the server
@@ -41,6 +43,28 @@ function onConnected() {
 
     // connectingElement.classList.add('hidden');
 }
+function onMessageReceivedNewRoom(payload) {
+    var message = JSON.parse(payload.body);
+    stompClient.subscribe('/topic/room/' + message.room_id, onMessageReceived);
+    var roomList = $('#room_list')
+    var content = '';
+    content += '<div idRoom= "'+message.room_id+'">'
+    content += '<a href=/'+message.room_id+' class="list-group-item list-group-item-action px-3 border-0" aria-current="true">'
+    content += '<img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 48px;" width="48px">'
+    content += '<strong>'+message.room_name+'</strong>'
+
+    content += '</a>'
+    
+
+    
+
+    
+    content += '</div>'
+    console.log(content);
+    roomList.prepend(content)
+    
+
+}
 
 
 function onError(error) {
@@ -50,23 +74,35 @@ function onError(error) {
 
 function sendMessage(event) {
     var script = document.createElement("SCRIPT");
-    
+
     var messageInput = document.querySelector("#typeText");
     var messageContent = messageInput.value.trim();
     var userId = document.getElementById('userId').getAttribute('userId')
-    
+    var room_id = document.getElementById('room_id').innerHTML
 
     if (messageContent && stompClient) {
         var chatMessage = {
-            room_id: "7d76b4d2-d17b-49f2-b374-58ca7308c73c",
+            room_id: room_id,
             content: messageContent,
             user_id: userId,
             msg_type: MESSAGE
         };
-        stompClient.send("/chat/7d76b4d2-d17b-49f2-b374-58ca7308c73c/sendMessage", {}, JSON.stringify(chatMessage));
+        // var path = "/chat/" + room_id + "/sendMessage";
+        // // var path = "/chat/createRoom/07e51d0e-f2da-4b5b-b98a-dac11969616c";
+
+
+        // stompClient.send(path, {}, JSON.stringify(chatMessage));
+        var path = "/chat/createRoom/07e51d0e-f2da-4b5b-b98a-dac11969616c";
+        stompClient.send(path, {},);
         messageInput.value = '';
     }
     event.preventDefault();
+}
+function createRoom(user_id) {
+    var path = "/chat/createRoom/" + user_id;
+    stompClient.send(path, {},);
+
+
 }
 
 function onMessageReceivedSubcribe(payload) {
@@ -109,12 +145,12 @@ function onMessageReceived(payload) {
     // messageArea.appendChild(messageElement);
     // messageArea.scrollTop = messageArea.scrollHeight;
     var script = document.createElement("SCRIPT");
-    script.src = 'https://code.jquery.com/jquery-3.2.1.slim.min.js';
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js';
     script.type = 'text/javascript';
     document.getElementsByTagName("head")[0].appendChild(script);
-    
-    var content = '';
     var userId = document.getElementById('userId').getAttribute('userId')
+
+    var content = '';
 
     if (message.user_id != userId) {
         content += '<div class="d-flex justify-content-end" style="margin-right: 50px;">'
