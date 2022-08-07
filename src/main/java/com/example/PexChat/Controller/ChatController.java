@@ -6,33 +6,28 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.PexChat.Model.Messenges;
 import com.example.PexChat.Model.Room;
 import com.example.PexChat.Model.Users;
-import com.example.PexChat.Repo.RoomRepo;
-import com.example.PexChat.Service.MessengesService;
 import com.example.PexChat.SideModel.MessegesSideModel;
 import com.google.gson.Gson;
 
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import lombok.var;
 
 @Controller
 public class ChatController extends BaseController {
@@ -51,6 +46,8 @@ public class ChatController extends BaseController {
         model.addAttribute("info", user);
         System.out.println("username: "+ user.getUser_id());
         model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
+        model.addAttribute("currentRoom", "");
+
         
         return "homepage";
     }
@@ -68,30 +65,34 @@ public class ChatController extends BaseController {
     @SendTo("/topic/checkRoom")
 
     public List<Room> rooms(Principal principal, SimpMessageHeaderAccessor headerAccessor) {
-        System.out.println(1);
+        
         var userName = principal.getName();
         var userId = userService.GetUser(userName).getUser_id();
         headerAccessor.getSessionAttributes().put("username", userId);
         return roomService.getRooms(userName);
     }
-    @MessageMapping("/chat/createRoom/{user_id}")
-    @SendTo("/topic/room")
+    @MessageMapping("/createRoom/{user_id}")
+    
     public void userJoinRoom(@DestinationVariable UUID user_id, Principal principal) {
-        // with enabled spring security
+        
         String username = principal.getName();
 
         var currentUser = userService.GetUser(username);
         var otherUser = userService.GetUser(user_id);
 
-        var newRoom = new Room(UUID.randomUUID(), currentUser.getUsername() + " " + otherUser.getUsername(),
+        var newRoom = new Room(UUID.randomUUID(), currentUser.getUsername() + " and " + otherUser.getUsername(),
                 new Date(System.currentTimeMillis()));
         Messenges joinMessage1 = new Messenges(UUID.randomUUID(), currentUser, newRoom, "" + Messenges.JOIN,
                 new Date(System.currentTimeMillis()), Messenges.JOIN);
         Messenges joinMessage2 = new Messenges(UUID.randomUUID(), otherUser, newRoom, "" + Messenges.JOIN,
                 new Date(System.currentTimeMillis()), Messenges.JOIN);
-        roomService.addRoom(newRoom);
-        messengesService.addMesseges(joinMessage2);
-        messengesService.addMesseges(joinMessage1);
+        // roomService.addRoom(newRoom);
+        // messengesService.addMesseges(joinMessage2);
+        // messengesService.addMesseges(joinMessage1);
+        messagingTemplate.convertAndSend("/topic/getNewRoom/"+ user_id, newRoom);
+        messagingTemplate.convertAndSend("/topic/getNewRoom/"+ currentUser.getUser_id().toString(), newRoom);
+
+        System.out.println("hello: " + user_id.toString());
 
     }
 
@@ -117,13 +118,29 @@ public class ChatController extends BaseController {
     }
     
     @GetMapping("/{roomId}")
-    String showMess(@PathVariable (value= "roomId") UUID roomId, Model model){
+    String showMess(@PathVariable (value= "roomId") UUID roomId, Model model, @Param("keyword") String keyword){
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        }
         var user = userService.GetCurrentUser();
         Room room = new Room();
         room.setRoom_id(roomId);
+        model.addAttribute("currentRoom", roomId);
         model.addAttribute("messages", messengesService.getbyroom(room));
         model.addAttribute("info", user);
         model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
         return "homepage";
+    }
+    @ResponseBody
+    @PostMapping("/search")
+    public Users viewHomePage(String keyword) {
+        var user=userService.findByUser(keyword);
+        if(user!=null){
+            return user;
+        }
+        else{
+            return null;
+        }
     }
 }

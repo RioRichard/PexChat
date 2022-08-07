@@ -10,6 +10,12 @@
   <link rel="stylesheet" type="text/css" href="/CSS/styles.css">
   <!-- JavaScript Bundle with Popper -->
   <title>PexChat</title>
+  <style>
+    .avt-img {
+      border-radius: 50%;
+      height: 30px;
+    }
+  </style>
 </head>
 
 <body>
@@ -48,16 +54,18 @@
     <div class="row" style="margin-top: 5px;">
       <div class="col-3 ">
         <div class="d-flex justify-content-between" style="position: relative; bottom: 20px;">
-          <p class="ms-3 mt-2" style="position: relative; left: 160px;"><img src="/Image/logo.jfif" style="height: 55px;"><strong>Chat</strong></p> 
-            <a class="btn" data-bs-toggle="dropdown">
-              <img th:src="@{'/Image/' + ${info.avartar}}" class="rounded-circle" height="40" style="position: relative; top: 10px; left: 135px;"/>
-              <strong class="d-none d-sm-block ms-1" id="userId" th:attr="userId=${info.getUser_id()}"></strong>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/accounts">Cài đặt</a></li>
-              <li><a class="dropdown-item" href="\Logout">Đăng Xuất</a></li>
-            </ul>
-          <div style="position: relative; top: 18px;">      
+          <p class="ms-3 mt-2" style="position: relative; left: 160px;"><img src="/Image/logo.jfif"
+              style="height: 55px;"><strong>Chat</strong></p>
+          <a class="btn" data-bs-toggle="dropdown">
+            <img th:src="@{'/Image/' + ${info.avartar}}" class="rounded-circle" height="40"
+              style="position: relative; top: 10px; left: 135px;" />
+            <strong class="d-none d-sm-block ms-1" id="userId" th:attr="userId=${info.getUser_id()}"></strong>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/accounts">Cài đặt</a></li>
+            <li><a class="dropdown-item" href="\Logout">Đăng Xuất</a></li>
+          </ul>
+          <div style="position: relative; top: 18px;">
             <!-- Modal -->
             <button type="button" class="btn btn-link btn-sm p-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
               data-bs-whatever="@mdo"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -77,21 +85,24 @@
                     <form>
                       <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Nhập username cần tìm:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input type="text" class="form-control" id="searchValue">
+                      </div>
+                      <div class="search-result">
+
                       </div>
                     </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Tìm</button>
+                    <button type="button" class="btn search btn-primary">Tìm</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="list-group list-group-light" style="height: 1000px;">
-          <div class="" th:each="room : ${listRoom}">
+        <div class="list-group list-group-light" id="room_list" style="height: 1000px;">
+          <div class="" th:each="room : ${listRoom}" th:attr="roomId=${room.room_id}">
             <a th:href="@{/{roomId}(roomId = ${room.room_id})}"
               class="list-group-item list-group-item-action px-3 border-0" aria-current="true">
               <img src="/Image/logo.jfif" alt="" class="border rounded-circle" style="height: 48px;" width="48px">
@@ -120,16 +131,19 @@
             <div class="chat-scroll" id="chat-scroll">
               <div th:each="mess : ${messages}">
                 <!--tin nhắn của bạn bè-->
-                <div th:if="${mess.user.user_id != info.user_id}" class="d-flex justify-content-start">
-                  <img th:src="@{'/Image/' + ${mess.user.avartar}}" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">
+                <div th:if="${mess.user.user_id != info.user_id && mess.data_type != 3}"
+                  class="d-flex justify-content-start">
+                  <img th:src="@{'/Image/' + ${mess.user.avartar}}" alt="" class="border rounded-circle me-2" style="height: 30px;"
+                    width="30px">
                   <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
                     <!-- <small class="float-end">14:52</small> -->
                   </p>
                 </div>
                 <!--tin nhắn của bạn bè-->
-                <div th:if="${mess.user.user_id == info.user_id}" class="d-flex justify-content-end"
-                  style="margin-right: 50px;">
-                  <p th:text="${mess.content}" class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
+                <div th:if="${mess.user.user_id ==info.user_id && mess.data_type != 3}"
+                  class="d-flex justify-content-end" style="margin-right: 50px;">
+                  <p th:text="${mess.content}" class="bg-primary text-white p-3 message_circle"
+                    style="max-width: 533px;">
                     <!-- <small class="float-end">14:52</small> -->
                   </p>
                 </div>
@@ -137,23 +151,24 @@
               </div>
           </section>
           <!--Khung Chat-->
-  
+
           <!--Thanh để nhắn tin-->
           <section class="section__headline">
             <form id="form" class="d-flex">
-              <button type="button" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                  fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+              <button type="button" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                   <path
                     d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
                 </svg></button>
-  
+
               <div class="w-100 mx-2">
                 <div class="form-outline">
                   <input type="text" id="typeText" class="form-control" />
+                  <div style="display: none;" id="room_id" th:text="${currentRoom}"></div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                  fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+              <button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
                   <path
                     d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
                 </svg></button>
@@ -165,9 +180,8 @@
     <!--Khung Chat-->
   </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -178,6 +192,33 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
   <script src="../js/socket.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".search").click(function () {
+        var searchValue = $("#searchValue").val();
+        var searchResult = $(".search-result");
+        $.post(
+          "/search",
+          { keyword: searchValue },
+          (result, status, jqXHR) => {
+
+            if (result != "") {
+              var data = "<div class=" + "'list-group-item list-group-item-action px-3'" + ">" + "<img class=" + "'avt-img'" + "src=" + "/Image/" + result.avartar + " />" + " " + result.username + "</div>";
+              searchResult.empty();
+              searchResult.append(data);
+              console.log(result);
+            }
+            else {
+              searchResult.empty();
+              searchResult.append("<p> Không tìm thấy user </p>")
+              console.log(result);
+            }
+          }
+        )
+      });
+
+    });
+  </script>
 </body>
 
 </html>

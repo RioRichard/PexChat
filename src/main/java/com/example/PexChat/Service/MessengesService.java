@@ -1,8 +1,6 @@
 package com.example.PexChat.Service;
 
 import java.sql.Date;
-import java.util.ArrayList;
-
 import java.util.List;
 
 import java.util.UUID;
@@ -57,5 +55,12 @@ public class MessengesService extends BaseService {
         List <Messenges> mess = messengesRepo.findByRoom(room);
         return mess;
     }
-    
+    public Users listAll(String keyword) {
+        if (keyword != null) {
+            return userRepo.findByUsername(keyword);
+        }
+        else{
+            return null;
+        }
+    }
 }

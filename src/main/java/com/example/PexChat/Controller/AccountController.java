@@ -56,7 +56,7 @@ public class AccountController {
             return "redirect:/resigter";
         } else {
             user.setUser_id(UUID.randomUUID());
-            user.setAvartar("default-avatar");
+            user.setAvartar("default-avatar.jpg");
             user.setBackup_code(Helper.RandomString(8));
             Date now = new Date(System.currentTimeMillis());
             user.setDate_created(now);
