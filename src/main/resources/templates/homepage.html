@@ -9,7 +9,6 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="/CSS/styles.css">
   <!-- JavaScript Bundle with Popper -->
-
   <title>PexChat</title>
 </head>
 
@@ -85,9 +84,33 @@
     <div class="row" style="margin-top: 5px;">
       <div class="col-3 ">
         <div class="d-flex justify-content-between">
-
           <p class="ms-3 mt-2"><strong>Chat</strong></p>
-
+          <!-- Modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            data-bs-whatever="@mdo">Thêm bạn</button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Thêm bạn</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">Nhập username cần tìm:</label>
+                      <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Tìm</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div>
             <button type="button" class="btn btn-link btn-sm p-2" data-mdb-ripple-color="dark"><svg
                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill"
@@ -132,27 +155,21 @@
           <div class="chat-scroll">
             <div th:each="mess : ${messages}">
               <!--tin nhắn của bạn bè-->
-              <div class="d-flex justify-content-start">
+              <div th:if="${mess.user.user_id !=info.user_id}" class="d-flex justify-content-start">
                 <img src="/Image/avt2.jpg" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">
                 <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
-                  <small class="float-end">14:52</small>
+                  <!-- <small class="float-end">14:52</small> -->
                 </p>
               </div>
               <!--tin nhắn của bạn bè-->
-              <div class="d-flex justify-content-end" style="margin-right: 50px;">
-                <p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
-                  gfjhgfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-                  44444444444444444444444444444444444444
-                  44444444444444444444444444444444444444
-                  4444444444444444444444444444444444444
-                  <small class="float-end">14:52</small>
+              <div th:if="${mess.user.user_id ==info.user_id}" class="d-flex justify-content-end"
+                style="margin-right: 50px;">
+                <p th:text="${mess.content}" class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
+                  <!-- <small class="float-end">14:52</small> -->
                 </p>
               </div>
               <!--tin nhắn của mình-->
-          </div>
+            </div>
         </section>
         <!--Khung Chat-->
 
@@ -184,7 +201,6 @@
     <!--Khung Chat-->
   </div>
   </div>
-
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
