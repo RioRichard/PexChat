@@ -161,14 +161,14 @@
           <div class="chat-scroll" id="chat-scroll">
             <div th:each="mess : ${messages}">
               <!--tin nhắn của bạn bè-->
-              <div th:if="${mess.user.user_id !=info.user_id}" class="d-flex justify-content-start">
+              <div th:if="${mess.user.user_id ==info.user_id}" class="d-flex justify-content-start">
                 <img src="/Image/avt2.jpg" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">
                 <p th:text="${mess.content}" class="bg-light p-3 message_circle" style="max-width: 533px;">
                   <!-- <small class="float-end">14:52</small> -->
                 </p>
               </div>
               <!--tin nhắn của bạn bè-->
-              <div th:if="${mess.user.user_id ==info.user_id}" class="d-flex justify-content-end"
+              <div th:if="${mess.user.user_id !=info.user_id}" class="d-flex justify-content-end"
                 style="margin-right: 50px;">
                 <p th:text="${mess.content}" class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">
                   <!-- <small class="float-end">14:52</small> -->
