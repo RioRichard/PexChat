@@ -12,14 +12,14 @@
 .list-group{
 	display: block;
 	position: relative;
-	max-height: 750px;	
+	max-height: 809px;	
 	overflow-y: scroll;
 }
 
 .chat-scroll{
 	display: block;
 	position: relative;
-	height: 690px;	
+	height: 780px;	
 	overflow-y: scroll;
 }
 

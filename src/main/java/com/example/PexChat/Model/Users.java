@@ -31,6 +31,7 @@ public class Users implements Serializable {
     Date date_created;
     String avartar;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     List<Messenges> messages;
     

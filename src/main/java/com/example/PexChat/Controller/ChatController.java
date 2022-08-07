@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +32,7 @@ import com.example.PexChat.Service.MessengesService;
 import com.example.PexChat.SideModel.MessegesSideModel;
 import com.google.gson.Gson;
 
+import lombok.var;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -123,7 +126,7 @@ public class ChatController extends BaseController {
     }
     
     @GetMapping("/{roomId}")
-    String showMess(@PathVariable (value= "roomId") UUID roomId, Model model){
+    String showMess(@PathVariable (value= "roomId") UUID roomId, Model model, @Param("keyword") String keyword){
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
@@ -136,5 +139,12 @@ public class ChatController extends BaseController {
         model.addAttribute("info", user);
         model.addAttribute("listRoom", roomService.getRooms(user.getUsername()));
         return "homepage";
+    }
+    @ResponseBody
+    @PostMapping("/search")
+    public Users viewHomePage(String keyword) {
+        var user=userService.findByUser(keyword);
+        System.out.print(user.getUsername());
+        return user;
     }
 }
