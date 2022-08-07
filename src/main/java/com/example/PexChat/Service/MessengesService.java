@@ -1,7 +1,5 @@
 package com.example.PexChat.Service;
 
-import java.sql.Date;
-import java.util.ArrayList;
 
 import java.util.List;
 
@@ -44,18 +42,19 @@ public class MessengesService extends BaseService {
         messengesRepo.saveAndFlush(msgs);
     }
     public Messenges addMessengesFromChat(MessegesSideModel msgs)  {
+        
         var room = new Room();
         room.setRoom_id(UUID.fromString(msgs.getRoom_id()));
         var user = new Users();
         user.setUser_id(UUID.fromString(msgs.getUser_id()));
-        var messages = new Messenges(UUID.randomUUID(), user, room, msgs.getContent(), new Date(System.currentTimeMillis()), msgs.getMsg_type());
+        var messages = new Messenges(UUID.randomUUID(), user, room, msgs.getContent(), new java.util.Date(), msgs.getMsg_type());
         this.addMesseges(messages);
         var result = messengesRepo.findById(messages.getMessage_id()).get();
         return result;
     }
 
     public List<Messenges> getbyroom (Room room){
-        List <Messenges> mess = messengesRepo.findByRoom(room);
+        List <Messenges> mess = messengesRepo.findByRoomOrderByDate(room);
         return mess;
     }
     public Users listAll(String keyword) {

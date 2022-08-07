@@ -62,19 +62,20 @@ function onMessageReceivedNewRoom(payload) {
         stompClient.subscribe('/topic/room/' + message.room.room_id, onMessageReceived);
         var roomList = $('#room_list')
         var content = '';
-        content += '<div idRoom= "' + message.room.room_id + '">'
+        content += '<div class="room" roomid= "' + message.room.room_id + '">'
         content += '<a href=/' + message.room.room_id + ' class="list-group-item list-group-item-action px-3 border-0" aria-current="true">'
-        content += '<img src="/Image/avt2.jpg" alt="" class="border rounded-circle" style="height: 48px;" width="48px">'
+        content += '<img src="/Image/logo.jfif" alt="" class="border rounded-circle" style="height: 48px;" width="48px">'
         content += '<strong>' + message.room.room_name + '</strong>'
         content += '</a>'
         content += '</div>'
-        console.log(content);
+
         roomList.prepend(content)
     }
 
 
 
 }
+
 
 
 function onError(error) {
@@ -158,44 +159,49 @@ function onMessageReceived(payload) {
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js';
     script.type = 'text/javascript';
     document.getElementsByTagName("head")[0].appendChild(script);
-    var userId = document.getElementById('userId').getAttribute('userId')
+    var room_id = document.getElementById('room_id').innerHTML
 
-    var content = '<div>';
-
-    if (message.user.user_id != userId) {
-        content += '<div class="d-flex justify-content-start">'
-        content += '<img src="/Image/' + message.user.avartar + '" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">'
-        content += '<p class="bg-light p-3 message_circle" style="max-width: 533px;">'
-
-
+    if (room_id != message.room.room_id) {
+        var x = $('div[roomid="' + room_id + '"]').children().children('strong')
+        x.css('color', 'red')
+        console.log(x)
     } else {
+        var userId = document.getElementById('userId').getAttribute('userId')
 
-        content += '<div class="d-flex justify-content-end" style="margin-right: 50px;">'
-        content += '<p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">'
+        var content = '<div>';
 
+        if (message.user.user_id != userId) {
+            content += '<div class="d-flex justify-content-start">'
+            content += '<img src="/Image/' + message.user.avartar + '" alt="" class="border rounded-circle me-2" style="height: 30px;" width="30px">'
+            content += '<p class="bg-light p-3 message_circle" style="max-width: 533px;">'
+
+
+        } else {
+
+            content += '<div class="d-flex justify-content-end" style="margin-right: 50px;">'
+            content += '<p class="bg-primary text-white p-3 message_circle" style="max-width: 533px;">'
+
+        }
+
+        content += message.content
+
+        content += '</p>'
+        content += '</div>'
+        content += '</div>'
+
+
+        // Load the script
+
+        var path = $('#chat-scroll').append(content);
+        path.scrollTop(path.prop("scrollHeight"));
+        console.log(path);
+        console.log(content);
+
+
+
+
+        console.log(content);
     }
-
-    content += message.content
-
-    content += '</p>'
-    content += '</div>'
-    content += '</div>'
-
-
-    // Load the script
-
-    var path = $('#chat-scroll').append(content);
-    path.scrollTop(path.prop("scrollHeight"));
-    console.log(path);
-    console.log(content);
-
-
-
-
-    console.log(content);
 }
 
-$('#newUser').click(function (e) {
-    console.log("hello");
 
-});

@@ -1,18 +1,21 @@
 package com.example.PexChat.Model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
+
 
 @Entity
 @Table(name = "Messages")
@@ -40,7 +43,10 @@ public class Messenges implements Serializable {
     Room room;
 
     String content;
-    Date date_send;
+    @Temporal(TemporalType.TIMESTAMP)
+
+    @Column(name="date_send")
+    Date date;
     int data_type;
     public Messenges() {
     }
@@ -49,7 +55,7 @@ public class Messenges implements Serializable {
         this.user = user;
         this.room = room;
         this.content = content;
-        this.date_send = date_created;
+        this.date = date_created;
         this.data_type = data_type;
     }
     public UUID getMessage_id() {
@@ -77,10 +83,10 @@ public class Messenges implements Serializable {
         this.content = content;
     }
     public Date getDate_created() {
-        return date_send;
+        return date;
     }
     public void setDate_created(Date date_created) {
-        this.date_send = date_created;
+        this.date = date_created;
     }
     public int getData_type() {
         return data_type;

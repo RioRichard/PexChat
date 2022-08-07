@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,22 +19,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.PexChat.Model.Messenges;
 import com.example.PexChat.Model.Room;
 import com.example.PexChat.Model.Users;
-import com.example.PexChat.Repo.RoomRepo;
-import com.example.PexChat.Service.MessengesService;
 import com.example.PexChat.SideModel.MessegesSideModel;
 import com.example.PexChat.SideModel.SubscribeSideModel;
 import com.google.gson.Gson;
 
 import lombok.var;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ChatController extends BaseController {
@@ -154,8 +146,12 @@ public class ChatController extends BaseController {
     @ResponseBody
     @PostMapping("/search")
     public Users viewHomePage(String keyword) {
-        var user = userService.findByUser(keyword);
-        System.out.print(user.getUsername());
-        return user;
+        var user=userService.findByUser(keyword);
+        if(user!=null){
+            return user;
+        }
+        else{
+            return null;
+        }
     }
 }
