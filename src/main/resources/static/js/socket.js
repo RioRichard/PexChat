@@ -56,7 +56,7 @@ function onConnected() {
 }
 function onMessageReceivedNewRoom(payload) {
     var message = JSON.parse(payload.body);
-    if (message.messengesType == JOINED || message.messengesType == INVITE) {
+    if (message.messenges == JOINED || message.messenges == INVITE) {
         window.location.href = "/" + message.room.room_id
     } else {
         stompClient.subscribe('/topic/room/' + message.room.room_id, onMessageReceived);
