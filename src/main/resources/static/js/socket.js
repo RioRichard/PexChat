@@ -162,7 +162,7 @@ function onMessageReceived(payload) {
     var room_id = document.getElementById('room_id').innerHTML
 
     if (room_id != message.room.room_id) {
-        var x = $('div[roomid="' + room_id + '"]').children().children('strong')
+        var x = $('div[roomid="' +message.room.room_id + '"]').children().children('strong')
         x.css('color', 'red')
         console.log(x)
     } else {
